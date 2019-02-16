@@ -8,8 +8,10 @@ header-img: img/post-bg-ios9-web.jpg
 catalog: true
 tags:
     - 笔记目录
+    - DL & BioPhysChem
     - 深度学习
     - 生物物理化学
+    - 统计力学
     - 无序系统
 ---
 
@@ -21,11 +23,11 @@ tags:
 
 然而，深度学习为何具有如此优异的表现，仍然缺乏**统一的理论**来描述。这使它的运行过程像一个“**黑箱**”，设计新的网络架构也是一个需要创造力、经验和运气，而非科学的工作。
 
-在当前深度学习理论研究成为焦点时，我们回望深度学习的发展历程，会发现**物理化学、统计力学**，和神经科学一样，起着不可或缺的作用。就连被称为 “The Godfather of Deep Learning” 的 Geoffrey Hinton 教授，他的 PhD 导师 Christopher Longuet-Higgins 教授，就同时是一位理论化学家（后来从事认知科学研究）。这一思想在当前深度学习理论的研究中已经复兴，但究其来源，则是在上世纪 80 年代，以“**联结主义**”为名的神经网络第二次浪潮中。
+在当前深度学习理论研究成为焦点时，我们回望深度学习的发展历程，会发现**物理化学、统计力学**，和神经科学一样，起着不可或缺的作用。就连被称为 “The Godfather of Deep Learning” 的 Geoffrey Hinton 教授，他的 PhD 导师 Christopher Longuet-Higgins 教授，也同时是一位理论化学家（后来从事认知科学研究）。这一思想在当前深度学习理论的研究中已经复兴，但究其来源，则是在上世纪 80 年代，以“**联结主义**”为名的神经网络第二次浪潮中。
 
-**联结主义 (connectionism)** 认为，当网络将**大量简单的计算单元**连接在一起时可以实现智能行为。这正是复杂系统中的典型现象——大量相互作用的基本个体，可以随时间演化而产生**自组织**，展现出宏观的**集体行为**，使得在新的时间和空间尺度上，**涌现**出新的规律。代表性工作，Hopfield 联想记忆神经网络的论文题目“Neural networks and physical systems with emergent collective computational abilities” 便是这一思想最直观的体现。连接大量微观个体的动力学与宏观性质的，便是统计力学。
+**联结主义 (connectionism)** 认为，当网络将**大量简单的计算单元**连接在一起时可以实现智能行为。这正是复杂系统中的典型现象——大量相互作用的基本个体，可以随时间演化而产生**自组织**，展现出宏观的**集体行为**，使得在新的时间和空间尺度上，**涌现**出新的规律。代表性工作，Hopfield 联想记忆神经网络的论文题目“Neural networks and physical systems with emergent collective computational abilities” 便是这一思想最直观的体现。连接大量微观个体的动力学与宏观性质的，便是**统计力学**。
 
-![](https://tablewarebox.files.wordpress.com/2018/11/complex-system.jpg?w=768&h=769)
+![complex system](https://tablewarebox.files.wordpress.com/2018/11/complex-system.jpg?w=768&h=769)
 <div align="center">图1 复杂系统</div>
 
 上世纪70年代起，统计力学研究开始从**有序系统**，如晶体、均匀液体和气体，转而更多地关注**无序系统**，如自旋玻璃、结构玻璃、高聚物网络等。无序系统的统计力学理论在神经科学、进化生物学、系统生物学、软物质科学、信息论与编码、组合优化，甚至社会学、经济学中获得了广泛成功，这些领域和深度学习具有**类似的底层结构**：大量相互关联的随机变量或微观个体。预印本 arXiv 网站中的领域分类，凝聚态物理下的一项就是 disordered system and neural network。
@@ -34,7 +36,9 @@ tags:
 
 > 相比统计学，深度学习似乎更像统计力学。
 
-![](https://tablewarebox.files.wordpress.com/2018/11/concept-map-81.png)
+希望这份笔记能为不同相关领域从业者打开新的视角。欢迎讨论和批评指正。
+
+![knowledge atlas](https://tablewarebox.files.wordpress.com/2018/11/concept-map-81.png)
 <div align="center">图2 深度学习与物理化学</div>
 
 # 目录预告
