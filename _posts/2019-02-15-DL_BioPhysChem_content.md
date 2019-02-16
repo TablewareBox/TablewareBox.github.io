@@ -36,7 +36,7 @@ tags:
 
 > 相比统计学，深度学习似乎更像统计力学。
 
-希望这份笔记能为不同相关领域从业者打开新的视角。欢迎讨论和批评指正。
+希望这份笔记能为不同相关领域从业者提供新的视角。欢迎讨论和批评指正。
 
 ![knowledge atlas](https://tablewarebox.files.wordpress.com/2018/11/concept-map-81.png)
 <div align="center">图2 深度学习与物理化学</div>
