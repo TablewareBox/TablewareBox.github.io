@@ -55,8 +55,8 @@ mathjax:
 # document: http://jekyllrb.com/docs/configuration/#kramdown
 markdown: kramdown
 highlighter: rouge
-kramdown:
-  input: GFM                            # use Github Flavored Markdown !important
+# kramdown:
+#   input: GFM                            # use Github Flavored Markdown !important
 
 
 
