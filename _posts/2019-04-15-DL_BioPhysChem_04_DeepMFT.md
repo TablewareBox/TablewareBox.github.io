@@ -19,7 +19,7 @@ tags:
 
 > More is different. ——P. W. Anderson，1977年诺贝尔物理学奖得主
 
-**深度平均场理论**是近年来 Google Brain 研究人员提出的，用于解释深度神经网络的**表达能力、训练技巧**和**模型架构**的理论框架，其根源可追溯到日本学者**甘利俊(Shun-ichi Amari)** 上世纪70年代提出的**统计神经动力学**^[S. I. Amari. Characteristics of Random Nets of Analog Neuron-Like Elements. In *IEEE Trans. Syst. Man Cybern.* **2**, 643 (1972).]。在80年代 **Hopfield 网络**提出之后，H. Sompolinsky, A. Crisanti and H. J. Sommers 等人将其发展为**自旋玻璃模型**所衍生神经网络的**动态平均场理论**^[2]，研究网络运行时一般性的动力学性质，并描述了**有序-混沌相变**。
+**深度平均场理论**是近年来 Google Brain 研究人员提出的，用于解释深度神经网络的**表达能力、训练技巧**和**模型架构**的理论框架，其根源可追溯到日本学者**甘利俊(Shun-ichi Amari)** 上世纪70年代提出的**统计神经动力学**[^1]。在80年代 **Hopfield 网络**提出之后，H. Sompolinsky, A. Crisanti and H. J. Sommers 等人将其发展为**自旋玻璃模型**所衍生神经网络的**动态平均场理论**^[2]，研究网络运行时一般性的动力学性质，并描述了**有序-混沌相变**。
 
 ![knowledge atlas](https://tablewarebox.files.wordpress.com/2018/11/concept-map-81.png)
 <div align="center">图2 深度学习与物理化学</div>
@@ -88,3 +88,5 @@ tags:
 * 扩散概率模型与非平衡统计力学
 
 ## 参考文献
+
+[^1]: S. I. Amari. Characteristics of Random Nets of Analog Neuron-Like Elements. In *IEEE Trans. Syst. Man Cybern.* **2**, 643 (1972).
