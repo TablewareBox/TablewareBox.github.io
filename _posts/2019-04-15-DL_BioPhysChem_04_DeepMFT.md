@@ -46,8 +46,7 @@ tags:
 
 [^2]: H. Sompolinsky, A. Crisanti, and H. J. Sommers. **Chaos in random neural networks.** *Physical Review Letters*, 61(3): 259, 1988.
 
-[^3]: Jaehoon Lee, Yasaman Bahri, Roman Novak, Samuel S. Schoenholz,
-Jeffrey Pennington, and Jascha Sohl-Dickstein. **Deep neural networks as Gaussian processes.** *International Conference on Learning Representations*, 2018.
+[^3]: Jaehoon Lee, Yasaman Bahri, Roman Novak, Samuel S. Schoenholz, Jeffrey Pennington, and Jascha Sohl-Dickstein. **Deep neural networks as Gaussian processes.** *International Conference on Learning Representations*, 2018.
 
 [^4]: Ben Poole, Subhaneil Lahiri, Maithreyi Raghu, Jascha Sohl-Dickstein, and Surya Ganguli. **Exponential expressivity in deep neural networks through transient chaos.** In *Advances In Neural Information Processing Systems*, pages 3360–3368, 2016.
 
