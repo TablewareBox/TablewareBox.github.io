@@ -41,12 +41,6 @@ anchorjs: true                          # if you want to customize anchor. check
 # from PR#40, to support local preview for Jekyll 3.0
 gems: [jekyll-paginate]
 
-# MathJax Support
-mathjax:
-  enable: true
-  per_page: true
-  #cdn: //cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML
-  cdn: //cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML
 
 
 # Markdown settings
@@ -55,10 +49,16 @@ mathjax:
 # document: http://jekyllrb.com/docs/configuration/#kramdown
 markdown: kramdown
 highlighter: rouge
-# kramdown:
-#   input: GFM                            # use Github Flavored Markdown !important
+kramdown:
+  input: GFM                            # use Github Flavored Markdown !important
+  math_engine: mathjax
 
-
+# MathJax Support
+mathjax:
+  enable: true
+  per_page: true
+  #cdn: //cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML
+  cdn: //cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML
 
 # 评论系统
 # Disqus（https://disqus.com/）
