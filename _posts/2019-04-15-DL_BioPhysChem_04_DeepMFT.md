@@ -1,7 +1,6 @@
 ---
 layout:     post
-title:      深度平均场理论
-与统计神经动力学
+title:      深度平均场理论\n与统计神经动力学
 subtitle:   深度学习的生物物理化学原理 第4章
 date:       2019-04-15
 author:     TablewareBox
