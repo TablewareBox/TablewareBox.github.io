@@ -50,11 +50,12 @@ gems: [jekyll-paginate]
 markdown: kramdown
 highlighter: rouge
 kramdown:
-  input: GFM                            # use Github Flavored Markdown !important
+  #input: GFM                            # use Github Flavored Markdown !important
   math_engine: mathjax
 
+
 # MathJax Support
-mathjax:
+math_engine_opts:
   enable: true
   per_page: true
   #cdn: //cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML
