@@ -6,6 +6,7 @@ date:       2019-04-15
 author:     TablewareBox
 header-img: img/post-bg-ios9-web.jpg
 catalog: true
+mathjax: true
 tags:
     - Adv_MFT
     - 概率图模型
