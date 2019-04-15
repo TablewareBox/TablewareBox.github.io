@@ -50,8 +50,7 @@ tags:
 
 [^4]: Ben Poole, Subhaneil Lahiri, Maithreyi Raghu, Jascha Sohl-Dickstein, and Surya Ganguli. **Exponential expressivity in deep neural networks through transient chaos.** In *Advances In Neural Information Processing Systems*, pages 3360–3368, 2016.
 
-[^5]: Samuel S. Schoenholz, Justin Gilmer, Surya Ganguli, and Jascha Sohl-Dickstein. **Deep Information Propagation.** *International
-Conference on Learning Representations*, 2017.
+[^5]: Samuel S. Schoenholz, Justin Gilmer, Surya Ganguli, and Jascha Sohl-Dickstein. **Deep Information Propagation.** *International Conference on Learning Representations*, 2017.
 
 [^6]: Greg Yang, and Samuel S. Schoenholz. **Mean field residual networks: On the edge of chaos.** In *Advances in Neural Information Processing Systems*, 2017.
 
