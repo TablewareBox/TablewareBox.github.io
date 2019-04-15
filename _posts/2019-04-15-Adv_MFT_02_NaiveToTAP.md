@@ -69,6 +69,7 @@ $$\frac{\delta F(q)}{\delta q}=0
 $$
 
 > 这一方法在机器学习的**变分推断(Variational Inference)** 中被广泛用于对目标分布的近似，**变分自由能**在机器学习中被称为**变分下界(Variational Lower Bound, V-LB)** 或**证据下界(Evidence Lower Bound, ELBO)**。
+
 $$ 
 \begin{aligned} \log Z=\log p(\mathbf{x}) &=\log \int_{\mathbf{h}} p(\mathbf{x,h}) \\ 
 &=\log \int_{\mathbf{h}} p(\mathbf{x,h}) \frac{q(\mathbf{h})}{q(\mathbf{h})} \\ 
