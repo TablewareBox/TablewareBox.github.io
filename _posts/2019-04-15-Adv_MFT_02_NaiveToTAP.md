@@ -257,12 +257,12 @@ $$
 
 也可通过场论方法作更严格的证明：
 
-$$ 
-\exp\left[ \frac{1}{2} \mathbf{s^T(\beta J)s} \right]=\exp \left[\frac{\beta J_{0}}{2} N \sum_{i j} s_{i} s_{j}\right]=\exp \left[\frac{\beta J_{0}}{2 N}\left(\sum_{i} s_{i}\right)^{2}\right] \propto \int \mathrm{d} x \exp\left[-\frac{N}{2 \beta J_{0}} x^{2} +x \sum_{i} s_{i}\right]
 $$
-
-$$
-\begin{aligned} Z &=\sum_{\mathbf{s}} \exp\left[ \frac{1}{2} \mathbf{s^T(\beta J)s+\beta\theta^Ts} \right] \\
+\begin{aligned} 
+\exp\left[ \frac{1}{2} \mathbf{s^T(\beta J)s} \right]& =\exp \left[\frac{\beta J_{0}}{2} N \sum_{i j} s_{i} s_{j}\right]=\exp \left[\frac{\beta J_{0}}{2 N}\left(\sum_{i} s_{i}\right)^{2}\right]\\
+& \propto \int \mathrm{d} x \exp\left[-\frac{N}{2 \beta J_{0}} x^{2} +x \sum_{i} s_{i}\right]\\
+\\
+Z &=\sum_{\mathbf{s}} \exp\left[ \frac{1}{2} \mathbf{s^T(\beta J)s+\beta\theta^Ts} \right] \\
 
 &\propto\int \mathrm{d} x \exp\left[-\frac{N}{2 \beta J_{0}} x^{2} \right] \sum_{\mathbf{s}} \exp\left[ x \sum_{i} s_{i} \right]\exp\left[\mathbf{\beta\theta^T s}\right] \\
 &\propto\int \mathrm{d} x\,\exp\left[-\frac{N}{2 \beta J_{0}} x^{2}\right] \prod_{j}\left\{\sum_{s_{j}} e^{s_{j}\left(x+\beta\theta_{j}\right)}\right\} = \int \mathrm{d} x\, e^{\Phi(x)}
@@ -281,7 +281,11 @@ $J_{ij}$ 选为一组**零均值、互相独立的随机变量**。为简单起�
 
 此时若忽略自旋间的统计相关性，$\operatorname{Var}[h_i] \sim N\sigma^2(J_{ij}) \sim \mathcal{O}(1)$，朴素平均场近似不准确。下一节中介绍的 **TAP 平均场理论** 通过加入修正项，可以使此情形下，$N\to\infty$ 时平均场解准确。
 
-事实上只要满足**相互作用 $J_{ij}$ 范围无限**或**无穷维**，都可以构建出精确的平均场理论。这两个概念都和空间有关。**范围无限**指的是空间距离 $|| i-j || \to\infty$ 时 $J_{ij}$ 不衰减到0；**无穷维**下相互作用范围有限时也能和**无穷个**近邻自旋作用。这两种情形下随机变量（自旋）间的相关性都足够弱，可用平均场理论精确处理。
+事实上只要满足**相互作用 $J_{ij}$ 范围无限**或**无穷维**，都可以构建出精确的平均场理论。这两个概念都和空间有关。**范围无限**指的是空间距离 
+
+$$|| i-j || \to\infty$$ 
+
+时 $J_{ij}$ 不衰减到0；**无穷维**下相互作用范围有限时也能和**无穷个**近邻自旋作用。这两种情形下随机变量（自旋）间的相关性都足够弱，可用平均场理论精确处理。
 
 ## 2.6 TAP 方程 I - 空穴法
 
