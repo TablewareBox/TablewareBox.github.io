@@ -283,6 +283,20 @@ $J_{ij}$ 选为一组**零均值、互相独立的随机变量**。为简单起�
 
 事实上只要满足**相互作用 $J_{ij}$ 范围无限**或**无穷维**，都可以构建出精确的平均场理论。这两个概念都和空间有关。**范围无限**指的是空间距离 $|| i-j || \to\infty$ 时 $J_{ij}$ 不衰减到0；**无穷维**下相互作用范围有限时也能和**无穷个**近邻自旋作用。这两种情形下随机变量（自旋）间的相关性都足够弱，可用平均场理论精确处理。
 
-## 2.5 TAP 方程 I - 空穴法
+## 2.6 TAP 方程 I - 空穴法
 
 **TAP 平均场方程**根据对 **Sherrington-Kirkpatrick (SK) 自旋玻璃模型**推导出平均场理论的三位科学家 D.J. Thouless, P.W. Anderson 和 R.G. Palmer 命名。
+
+Under construction...
+
+## 2.7 TAP 方程 II - Plefka 展开
+
+Under construction...
+
+## 2.8 TAP 方程 III - 模型以外
+
+Under construction...
+
+## 2.9 展望
+
+Under construction...
