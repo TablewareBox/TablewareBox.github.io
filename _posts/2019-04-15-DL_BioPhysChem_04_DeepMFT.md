@@ -28,13 +28,14 @@ tags:
 - [x] 动态平均场理论回顾[^2]
 - [x] 深度平均场：理论假设与高斯过程视角[^3]
 - [ ] 深度网络的指数级表达能力[^4]
-- [ ] 深度信息传递：训练中的有序-混沌相变[^5]
-- [ ] 训练技巧 I: 残差网络的运行原理[^6]
-- [ ] 训练技巧 II: 层宽度变化、层方差变化的运行原理[^7]
-- [ ] 训练技巧 III: 批归一化的运行原理[^8]
-- [ ] CNN 的平均场理论[^9]
-- [ ] RNN, LSTM, GRU 的平均场理论[^10][^11]
-- [ ] 图网络的平均场理论[^12]
+- [ ] 深度信息传播：训练中的有序-混沌相变[^5]
+- [ ] 训练技巧 I: 正交初始化 - 动态等距与普适类[^6][^7]
+- [ ] 训练技巧 II: 残差网络的运行原理[^8]
+- [ ] 训练技巧 III: 层宽度变化、层方差变化的运行原理[^9]
+- [ ] 训练技巧 IV: 批归一化的运行原理[^10]
+- [ ] CNN 的平均场理论[^11]
+- [ ] RNN, LSTM, GRU 的平均场理论[^12][^13]
+- [ ] 图网络的平均场理论[^14]
 
 ## 4.1 动态平均场理论回顾
 
@@ -84,7 +85,7 @@ $$
 
 * 网络共有 $D+1$ 层**神经元** $\mathbf{x}^0,...,\mathbf{x}^D$，第 $l$ 层的**宽度**为 $N_l$，
 * $D$ 层**权重** $\mathbf{W}^1,...,\mathbf{W}^D$ 和**偏置** $\mathbf{b}^1,...,\mathbf{b}^D$。$\mathbf{x}^l, \mathbf{b}^l \in\mathbb{R}^{N_l},\mathbf{W}^l \in\mathbb{R}^{N_l\times N_{l-1}}.$
-* 对于**随机初始化**的神经网络，$\,$$\mathbf{W}_{ij}^l,\mathbf{b}_{i}^l$ 为独立的零均值高斯随机变量： $\mathbf{W}_{ij}^l \sim \mathcal{N}(0,\sigma_{w}^{2} / N_{l-1}),\,\mathbf{b}_{i}^l \sim \mathcal{N}(0,\sigma_{b}^{2})$. 方差使得 $l-1$ 层神经元对 $l$ 层神经元场的贡献为 $\mathcal{O}(1)$
+* 对于**随机初始化**的神经网络，$\mathbf{W}_{ij}^l,\mathbf{b}_{i}^l$ 为独立的零均值高斯随机变量： $\mathbf{W}_{ij}^l \sim \mathcal{N}(0,\sigma_{w}^{2} / N_{l-1}),\,\mathbf{b}_{i}^l \sim \mathcal{N}(0,\sigma_{b}^{2})$. 方差使得 $l-1$ 层神经元对 $l$ 层神经元场的贡献为 $\mathcal{O}(1)$
 * 前向传播的动力学为
 
 $$ 
@@ -104,16 +105,20 @@ $$
 
 [^5]: Samuel S. Schoenholz, Justin Gilmer, Surya Ganguli, and Jascha Sohl-Dickstein. **Deep Information Propagation.** *International Conference on Learning Representations*, 2017.
 
-[^6]: Greg Yang, and Samuel S. Schoenholz. **Mean field residual networks: On the edge of chaos.** In *Advances in Neural Information Processing Systems*, 2017.
+[^6]: Jeffrey Pennington, Samuel S. Schoenholz, and Surya Ganguli. **Resurrecting the sigmoid in deep learning through dynamical isometry: theory and practice.** *Advances in Neural Information Processing Systems*, 2017.
 
-[^7]: Greg Yang and Samuel S. Schoenholz. **Deep mean field theory: Layerwise variance and width variation as methods to control gradient explosion.** *International Conference on Learning Representations*, 2018.
+[^7]: Jeffrey Pennington, Samuel S. Schoenholz, and Surya Ganguli. **The emergence of spectral universality in deep networks.** *International Conference on Artificial Intelligence and Statistics (AISTATS)*, 2018.
 
-[^8]: Greg Yang, Jeffrey Pennington, Vinay Rao, Jascha Sohl-Dickstein, and Samuel S. Schoenholz. **A mean field theory of batch normalization.** *International Conference on Learning Representations*, 2019.
+[^8]: Greg Yang, and Samuel S. Schoenholz. **Mean field residual networks: On the edge of chaos.** In *Advances in Neural Information Processing Systems*, 2017.
 
-[^9]: Lechao Xiao, Yasaman Bahri, Jascha Sohl-Dickstein, Samuel S. Schoenholz, and Jeffrey Pennington. **Dynamical isometry and a mean field theory of CNNs: How to train 10,000-layer vanilla convolutional neural networks.** *International Conference on Learning Representations*, 2018.
+[^9]: Greg Yang and Samuel S. Schoenholz. **Deep mean field theory: Layerwise variance and width variation as methods to control gradient explosion.** *International Conference on Learning Representations*, 2018.
 
-[^10]: Minmin Chen, Jeffrey Pennington, and Samuel S. Schoenholz. **Dynamical isometry and a mean field theory of RNNs: Gating enables signal propagation in recurrent neural networks.** *International Conference on Learning Representations*, 2018.
+[^10]: Greg Yang, Jeffrey Pennington, Vinay Rao, Jascha Sohl-Dickstein, and Samuel S. Schoenholz. **A mean field theory of batch normalization.** *International Conference on Learning Representations*, 2019.
 
-[^11]: Dar Gilboa, Bo Chang, Minmin Chen, Greg Yang, Samuel S. Schoenholz, Ed H. Chi, and Jeffrey Pennington. **Dynamical isometry and a mean field theory of LSTMs and GRUs.** *arXiv preprint arXiv:1901.08987*, 2019.
+[^11]: Lechao Xiao, Yasaman Bahri, Jascha Sohl-Dickstein, Samuel S. Schoenholz, and Jeffrey Pennington. **Dynamical isometry and a mean field theory of CNNs: How to train 10,000-layer vanilla convolutional neural networks.** *International Conference on Learning Representations*, 2018.
 
-[^12]: Tatsuro Kawamoto, and Masashi Tsubaki. **Mean-field theory of graph neural networks in graph partitioning.** *arXiv preprint arXiv:1810.11908*, 2018.
+[^12]: Minmin Chen, Jeffrey Pennington, and Samuel S. Schoenholz. **Dynamical isometry and a mean field theory of RNNs: Gating enables signal propagation in recurrent neural networks.** *International Conference on Learning Representations*, 2018.
+
+[^13]: Dar Gilboa, Bo Chang, Minmin Chen, Greg Yang, Samuel S. Schoenholz, Ed H. Chi, and Jeffrey Pennington. **Dynamical isometry and a mean field theory of LSTMs and GRUs.** *arXiv preprint arXiv:1901.08987*, 2019.
+
+[^14]: Tatsuro Kawamoto, and Masashi Tsubaki. **Mean-field theory of graph neural networks in graph partitioning.** *arXiv preprint arXiv:1810.11908*, 2018.
