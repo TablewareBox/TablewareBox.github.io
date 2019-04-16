@@ -232,13 +232,12 @@ $$
 回忆 **Callen 方程**，朴素平均场近似忽略了**局域场 $h_i$ 的涨落**：
 
 $$h_{i}=\sum_{j} J_{i j} s_{j}+\theta_i\\
-\begin{array}{rl}
+\begin{aligned}
     \mathbb{E}_p [s_i] &
     =\mathbb{E}_p\left[\tanh\left( \beta h_i\right)\right] \\
-    & \\
     \mathbb{E}_q [s_i] &
     = \tanh\left( \beta \mathbb{E}_q[h_i]\right)\\
-\end{array}
+\end{aligned}
 $$
 
 $h_i$ 是一系列随机变量的和，故当随机变量数量很大时，$h_i$ 的涨落很小，平均场近似准确。主要有两种极端情况下成立：
@@ -289,9 +288,49 @@ $$|| i-j || \to\infty$$
 
 ## 2.6 TAP 方程 I - 空穴法
 
-**TAP 平均场方程**根据对 **Sherrington-Kirkpatrick (SK) 自旋玻璃模型**推导出平均场理论的三位科学家 D.J. Thouless, P.W. Anderson 和 R.G. Palmer 命名。
+**TAP 平均场方程**根据对 **Sherrington-Kirkpatrick (SK) 自旋玻璃模型**推导出平均场理论的三位科学家 D.J. Thouless, P.W. Anderson 和 R.G. Palmer 命名。**Sherrington-Kirkpatrick (SK) 自旋玻璃模型**中，$J_{ij}$ 为一组**零均值、互相独立的高斯随机变量**，方差为 $\sigma^2(J_{ij})=J_0^2/N$。
 
-Under construction...
+M. Mézard 和 G. Parisi 提出的**空穴法**与 **Bethe 近似**有很大关系。**Bethe 近似**是对**树状（无环）结构**的精确平均场理论：
+
+每个自旋的边缘分布
+
+$$
+p_{i}(s_{i})=\sum_{\mathbf{s} \backslash s_i} p(\mathbf{s}) \propto \sum_{\mathbf{s} \backslash s_i} \exp\left[s_{i}\left(\sum_{j} J_{i j} s_{j}+\theta_{i}\right)\right] \cdot p(\mathbf{s} \backslash s_{i})
+$$
+
+$p(\mathbf{s} \backslash s_{i})$ 为 $N-1$ 个自旋 $\mathbf{s} \backslash s_{i}$ 的联合分布。若用非零 $J_{ij}$ 连接各自旋节点形成的图**无环**，则移去 $s_i$ 并切断与它的所有联系后，其余自旋应完全独立：
+
+$$
+p_{i}(s_{i}) \propto \prod_{j}\left[\sum_{s_{j}} \exp(s_i J_{i j} s_j)\cdot p_{j \backslash i}(s_{j})\right]
+$$
+
+$p_{j \backslash i}(s_{j})$ 表示除 $s_i$ 外各自旋的边缘分布。此时已有了边缘分布 $p_{i}(s_{i})$ 组成的**自洽场方程组**，可以通过迭代地计算“**消息(messages)**”
+
+$$
+m_{ji}(s_i) = \sum_{s_{j}} \exp(s_i J_{i j} s_j)\cdot p_{j \backslash i}(s_{j})
+$$
+
+求解方程组。这种方法被称为**信念传播(Belief Propagation, BP)算法**，是**消息传递(Message Passing)算法**的一种。BP 方法可以推导出 **TAP 方程**。
+
+* * *
+
+**空穴法**利用了 SK 模型的**全连接特性**。由于 $s_i$ 对其他自旋 $s_j$ 的依赖关系只通过场 $h_i=\sum_j J_{ij} s_j$，考虑 $h_i$ 和 $s_i$ 的联合分布：
+
+$$
+p(s_{i}, h_{i}) \propto e^{s_{i}(h_{i}+\theta_{i})} p(h_{i} \backslash s_{i})
+$$
+
+其中 $h_i$ 的**空穴分布**
+
+$$
+p(h_{i} \backslash s_{i})=\sum_{\mathbf{s} \backslash s_{i}} \delta\left(h_{i}-\sum_{j} J_{i j} s_{j}\right) p(\mathbf{s} \backslash s_{i})
+$$
+
+由此得到
+
+$$
+p_{i}(s_{i})=\frac{\int \mathrm{d} h_{i}\, e^{s_{i}(h_{i}+\theta_{i})} p(h_{i} \backslash s_{i})}{\sum_{s_{i}} \int \mathrm{d} h_{i}\, e^{s_{i}(h_{i}+\theta_{i})} p(h_{i} \backslash s_{i})}
+$$
 
 ## 2.7 TAP 方程 II - Plefka 展开
 
