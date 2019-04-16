@@ -84,7 +84,7 @@ $$
 
 * 网络共有 $D+1$ 层**神经元** $\mathbf{x}^0,...,\mathbf{x}^D$，第 $l$ 层的**宽度**为 $N_l$，
 * $D$ 层**权重** $\mathbf{W}^1,...,\mathbf{W}^D$ 和**偏置** $\mathbf{b}^1,...,\mathbf{b}^D$。$\mathbf{x}^l, \mathbf{b}^l \in\mathbb{R}^{N_l},\mathbf{W}^l \in\mathbb{R}^{N_l\times N_{l-1}}.$
-* 对于**随机初始化**的神经网络，$\mathbf{W}_{ij}^l,\mathbf{b}_{i}^l$ 为独立的零均值高斯随机变量： $a\mathbf{W}_{ij}^l \sim \mathcal{N}(0,\sigma_{w}^{2} / N_{l-1}),\,\mathbf{b}_{i}^l \sim \mathcal{N}(0,\sigma_{b}^{2})$. 方差使得 $l-1$ 层神经元对 $l$ 层神经元场的贡献为 $\mathcal{O}(1)$
+* 对于**随机初始化**的神经网络，$\,$$\mathbf{W}_{ij}^l,\mathbf{b}_{i}^l$ 为独立的零均值高斯随机变量： $\mathbf{W}_{ij}^l \sim \mathcal{N}(0,\sigma_{w}^{2} / N_{l-1}),\,\mathbf{b}_{i}^l \sim \mathcal{N}(0,\sigma_{b}^{2})$. 方差使得 $l-1$ 层神经元对 $l$ 层神经元场的贡献为 $\mathcal{O}(1)$
 * 前向传播的动力学为
 
 $$ 
