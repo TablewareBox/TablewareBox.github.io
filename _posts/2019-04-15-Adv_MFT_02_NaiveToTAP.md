@@ -122,7 +122,7 @@ $$\begin{aligned}
 \end{aligned}
 $$
 
-可以看出平均场近似将**涨落的场** $h_i=\sum_j J_{ij}s_j+\theta_i$ 用“**平均场**” $\mathbb{E}_q[h_i]=\sum_jJ_{ij}\mathbb{E}_q[s_j]+\theta_i$ 代替了。
+可以看出平均场近似将**涨落的场** $h_i=\sum_j J_{ij}s_j+\theta_i$ 用“**平均场**” $\mathbb{E} _ q[h _ i]=\sum _ j J _ {ij}\mathbb{E} _ q[s _ j]+\theta_i$ 代替了。
 
 ## 2.3 线性响应校正
 
