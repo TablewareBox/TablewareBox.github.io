@@ -140,7 +140,7 @@ $$
 q_{aa}^{l}=\frac{1}{N_{l}} \sum_{i=1}^{N_{l}}(\mathbf{h}_{i}^{l})^{2},\,\,\,\,\,q_{a b}^{l}=\frac{1}{N_{l}} \sum_{i=1}^{N_{l}} \mathbf{h}_{i}^{l}(\mathbf{x}^{0, a}) \mathbf{h}_{i}^{l}(\mathbf{x}^{0, b}) \quad a, b \in\{1,2\}
 $$
 
-**平均场近似**认为，$N_{l-1}$ 很大时，$\mathbf{h}_{i}^{l}=\sum_{j} \mathbf{W}_{i j}^{l} \phi(\mathbf{h}_{j}^{l-1})+\mathbf{b}_{i}^{l}$ 是许多独立随机变量的和，由**中心极限定理**，服从**高斯分布**，可用对高斯随机变量 $z$ 的平均取代对 $N_{l-1}$ 个神经元的平均。方差随着前向传播而传递：
+**平均场近似**认为，$N _ {l-1}$ 很大时，$\mathbf{h} _ {i}^{l}=\sum _ {j} \mathbf{W} _ {i j}^{l} \phi(\mathbf{h} _ {j}^{l-1})+\mathbf{b} _ {i}^{l}$ 是许多独立随机变量的和，由**中心极限定理**，服从**高斯分布**，可用对高斯随机变量 $z$ 的平均取代对 $N_{l-1}$ 个神经元的平均。方差随着前向传播而传递：
 
 $$
 \begin{aligned}
@@ -157,7 +157,14 @@ q^{0}=\frac{1}{N_{0}} \mathbf{x}^{0} \cdot \mathbf{x}^{0},\,\,\,\,\,
 q^{1}=\sigma_{w}^{2} q^{0}+\sigma_{b}^{2}
 $$
 
-函数 $\mathcal{V}(q)$ 为迭代的长度映射，$q^{l}=\mathcal{V}(q^{l-1})$ 与单位线 $q^{l}=q^{l-1}$ 相交于不动点 $q^*(\sigma _ w,\sigma _ b)$
+函数 $\mathcal{V}(q)$ 为迭代的长度映射，对单调的非线性激活函数 $\phi$ 是**单调递增的凹函数**。$q^{l}=\mathcal{V}(q^{l-1}|\sigma _ w,\sigma _ b)$ 与单位线 $q^{l}=q^{l-1}$ 相交于不动点 $q^*(\sigma _ w,\sigma _ b).$ 不动点有以下几种情形：
+
+* $\sigma _ b =0, \sigma _ w <1$ 时，唯一不动点为 $q^*=0$，前向传播中 $q$ 衰减为0.
+* $\sigma _ b =0, \sigma _ w >1$ 时，$q^*=0$ 为不稳定不动点，同时有另一稳定不动点 $q^ * >0.$
+* $\sigma _ b >0$ 时，总有稳定不动点 $q^ * >0.$
+
+![deepmft_1](https://tablewarebox.files.wordpress.com/2019/04/deepmft_1.png)
+<div align="center">图1 $\phi(h)=\tanh(h)$深度学习与物理化学</div>
 
 ## 参考文献
 
