@@ -81,9 +81,12 @@ $$
 
 ### 4.1.2 方程推导
 
-方程中包含的随机性来源于随机的耦合常数 $J_{ij}$。**动态问题的统计性质**也就是随机的 $J_{ij}$ 下运行路径 $\mathbf{h}(t)$ 的概率分布。然而概率分布往往无法直接计算，只能通过近似方法计算它的**矩(moment**)。**随机变量**概率分布的**矩**可以通过**矩生成函数(对应配分函数**)对**共轭变量**不断求导得到，类似地，**随机过程**概率分布的**矩**可以通过**生成泛函**对**共轭变量**不断求导得到。关于**生成泛函（路径积分）方法**的简介可以参考[^15]。
+方程中包含的随机性来源于随机的耦合常数 $J_{ij}$。**动态问题的统计性质**也就是随机的 $J_{ij}$ 下运行路径 $\mathbf{h}(t)$ 的概率分布。然而概率分布往往无法直接计算，只能通过近似方法计算它的**矩(moment**)。关于**生成泛函（路径积分）方法**的简介可以参考[^15]：
 
-生成泛函需要对 $J_{ij}$ 及所有可能的**路径** $\mathbf{h}(t)$ 做**泛函积分**，也就是说 $D \mathbf{h}=D[\mathbf{h}(t)].$ 引入 $\hat{\mathbf{h}}(t)$ 以满足时间演化方程，引入共轭场 $\mathbf{l}(t)$ 和 $\hat{\mathbf{l}}(t)$，定义**生成泛函**：
+* **随机变量**概率分布的**矩**可以通过**矩生成函数(对应配分函数**)对**共轭变量**不断求导得到，
+* 类似地，**随机过程**概率分布的**矩**可以通过**生成泛函**对**共轭变量**不断求导得到。
+
+生成泛函需要对 $J_{ij}$ 及所有可能的**路径** $\mathbf{h}(t)$ 做**泛函积分**，也就是说 $D \mathbf{h}=D[\mathbf{h}(t)].$ 引入 $\hat{\mathbf{h}}(t)$ 通过 $\delta$ 函数的傅里叶变换以满足时间演化方程，引入共轭场 $\mathbf{l}(t)$ 和 $\hat{\mathbf{l}}(t)$，定义**生成泛函**：
 
 $$
 \begin{aligned}
@@ -113,17 +116,48 @@ $$
 
 * 网络共有 $D+1$ 层**神经元** $\mathbf{x}^0,...,\mathbf{x}^D$，第 $l$ 层的**宽度**为 $N_l$，
 * $D$ 层**权重** $\mathbf{W}^1,...,\mathbf{W}^D$ 和**偏置** $\mathbf{b}^1,...,\mathbf{b}^D$。$\mathbf{x}^l, \mathbf{b}^l \in\mathbb{R}^{N_l},\mathbf{W}^l \in\mathbb{R}^{N_l\times N_{l-1}}.$
-* 对于**随机初始化**的神经网络，$\mathbf{W} _ {ij}^l,\mathbf{b} _ {i}^l$ 为独立的零均值高斯随机变量，方差设定使得 $l-1$ 层神经元对 $l$ 层神经元场的贡献为 $\mathcal{O}(1)$：
+* 对于**随机初始化**的神经网络，$\mathbf{W} _ {ij}^l,\mathbf{b} _ {i}^l$ 为独立的零均值高斯随机变量，方差设定使得 $l-1$ 层神经元对 $l$ 层神经元场的贡献为 $\mathcal{O}(1)$，且选定后不再变化：
 
 $$\mathbf{W}_{ij}^l \sim \mathcal{N}(0,\sigma_{w}^{2} / N_{l-1}),\,\,\,\,\,\mathbf{b}_{i}^l \sim \mathcal{N}(0,\sigma_{b}^{2})
 $$
 
 * 前向传播的动力学为
 
-$$ 
+$$
 \mathbf{h}^{l}=\mathbf{W}^{l} \mathbf{x}^{l-1}+\mathbf{b}^{l},\,\,\,\,\,
 \mathbf{x}^{l}=\phi(\mathbf{h}^{l})
- $$
+$$
+
+**深度平均场理论**直接关注了前向传播中**序参量**的变化。在**自旋玻璃理论**[^16]中，序参量是**重叠度(overlap**)：
+
+$$
+q_{\alpha \alpha}=\frac{1}{N} \sum_{i=1}^{N}\langle\sigma_{i}\rangle_{\alpha}^{2},\,\,\,\,\,q_{\alpha \beta}=\frac{1}{N} \sum_{i=1}^{N}\langle\sigma_{i}\rangle_{\alpha}\langle\sigma_{i}\rangle_{\beta}
+$$
+
+**自重叠度(self-overlap**) $q_{\alpha \alpha}$ 衡量构型或态的**大小**，$q_{\alpha \beta}$ 衡量构型或态间的**相似度**。类似地，对网络的每一层有
+
+$$ 
+q_{aa}^{l}=\frac{1}{N_{l}} \sum_{i=1}^{N_{l}}(\mathbf{h}_{i}^{l})^{2},\,\,\,\,\,q_{a b}^{l}=\frac{1}{N_{l}} \sum_{i=1}^{N_{l}} \mathbf{h}_{i}^{l}(\mathbf{x}^{0, a}) \mathbf{h}_{i}^{l}(\mathbf{x}^{0, b}) \quad a, b \in\{1,2\}
+$$
+
+**平均场近似**认为，$N_{l-1}$ 很大时，$\mathbf{h}_{i}^{l}=\sum_{j} \mathbf{W}_{i j}^{l} \phi(\mathbf{h}_{j}^{l-1})+\mathbf{b}_{i}^{l}$ 是许多独立随机变量的和，由**中心极限定理**，服从**高斯分布**，可用对高斯随机变量 $z$ 的平均取代对 $N_{l-1}$ 个神经元的平均。方差随着前向传播而传递：
+
+$$
+\begin{aligned}
+    q^{l}=\langle(\mathbf{h}_{i}^{l})^{2}\rangle &=\left\langle[\mathbf{W}_{ij}^{l} \cdot \phi(\mathbf{h}_{j}^{l-1})]^{2}\right\rangle+\langle(\mathbf{b}_{i}^{l})^{2}\rangle \\
+    &=\sigma_{w}^{2} \frac{1}{N_{l-1}} \sum_{j=1}^{N_{l-1}} \phi(\mathbf{h}_{j}^{l-1})^{2}+\sigma_{b}^{2} \\
+    &=\mathcal{V}(q^{l-1} | \sigma_{w}, \sigma_{b}) \\
+    &\equiv \sigma_{w}^{2} \int \mathcal{D} z\,\, \phi\left(\sqrt{q^{l-1}} z\right)^{2}+\sigma_{b}^{2}
+\end{aligned}
+$$
+
+$$ 
+\mathcal{D} z=\frac{\mathrm{d} z}{\sqrt{2 \pi}} e^{-z^{2}/2},\,\,\,\,\,
+q^{0}=\frac{1}{N_{0}} \mathbf{x}^{0} \cdot \mathbf{x}^{0},\,\,\,\,\,
+q^{1}=\sigma_{w}^{2} q^{0}+\sigma_{b}^{2}
+$$
+
+函数 $\mathcal{V}(q)$ 为迭代的长度映射，$q^{l}=\mathcal{V}(q^{l-1})$ 与单位线 $q^{l}=q^{l-1}$ 相交于不动点 $q^*(\sigma _ w,\sigma _ b)$
 
 ## 参考文献
 
@@ -155,4 +189,6 @@ $$
 
 [^14]: Tatsuro Kawamoto, and Masashi Tsubaki. **Mean-field theory of graph neural networks in graph partitioning.** *arXiv preprint arXiv:1810.11908*, 2018.
 
-[^15]: Chow C, Buice M (2015) **Path integral methods for stochastic differential equations.** *The Journal of Mathematical Neuroscience* 5(1):8, DOI: 10.1186/s13408-015-0018-5
+[^15]: Chow C, Buice M (2015) **Path integral methods for stochastic differential equations.** *The Journal of Mathematical Neuroscience* 5(1):8, DOI: 10.1186/s13408-015-0018-5.
+
+[^16]: Tommaso Castellani, and Andrea Cavagna. **Spin-glass theory for pedestrians.** *J. Stat. Phys.* (2005) P05012. DOI: 10.1088/1742-5468/2005/05/P05012.
