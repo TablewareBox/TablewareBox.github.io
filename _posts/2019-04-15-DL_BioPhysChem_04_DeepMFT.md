@@ -157,7 +157,7 @@ q^{0}=\frac{1}{N_{0}} \mathbf{x}^{0} \cdot \mathbf{x}^{0},\,\,\,\,\,
 q^{1}=\sigma_{w}^{2} q^{0}+\sigma_{b}^{2}
 $$
 
-函数 $\mathcal{V}(q)$ 为迭代的长度映射，对单调的非线性激活函数 $\phi$ 是**单调递增的凹函数**。$q^{l}=\mathcal{V}(q^{l-1}|\sigma _ w,\sigma _ b)$ 与单位线 $q^{l}=q^{l-1}$ 相交于不动点 $q^*(\sigma _ w,\sigma _ b).$ 不动点有以下几种情形：
+函数 $\mathcal{V}(q)$ 为迭代的长度映射，对单调的非线性激活函数 $\phi$ 是**单调递增的凹函数**。$q^{l}=\mathcal{V}(q^{l-1}\vert\sigma _ w,\sigma _ b)$ 与单位线 $q^{l}=q^{l-1}$ 相交于不动点 $q^*(\sigma _ w,\sigma _ b).$ 不动点有以下几种情形：
 
 * $\sigma _ b =0, \sigma _ w <1$ 时，唯一不动点为 $q^*=0$，前向传播中 $q$ 衰减为0.
 * $\sigma _ b =0, \sigma _ w >1$ 时，$q^*=0$ 为不稳定不动点，同时有另一稳定不动点 $q^ * >0.$
