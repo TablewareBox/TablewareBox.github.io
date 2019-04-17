@@ -21,7 +21,7 @@ tags:
 
 ## 引言
 
-**深度平均场理论**是近年来 Google Brain 研究人员提出的，用于解释深度神经网络的**表达能力、训练技巧**和**模型架构**的理论框架，其根源可追溯到日本学者**甘利俊一(Shun-ichi Amari)** 上世纪70年代提出的**统计神经动力学**[^1]。在80年代 **Hopfield 网络**提出之后，H. Sompolinsky, A. Crisanti 和 H. J. Sommers 等人将其发展为**自旋玻璃模型**所衍生**无向神经网络**的**动态平均场理论**[^2]，研究网络运行时一般性的动力学性质，并描述了**有序-混沌相变**。由于无向神经网络的**时间演化、动态问题**类似于有向神经网络的**层间传递、深度问题**，S. S. Schoenholz, S. Ganguli, J. Pennington 和 J. Sohl-Dickstein 等人重新以现代的**有向（前馈）神经网络**结构进行了推导，他们的一系列理论工作已能一定程度上为网络结构和训练技巧的设计提供指导。
+**深度平均场理论**是近年来 Google Brain 研究人员提出的，用于解释深度神经网络的**表达能力、训练技巧**和**模型架构**的理论框架，其根源可追溯到日本学者**甘利俊一(Shun-ichi Amari)** 上世纪70年代提出的**统计神经动力学**[^1]。在80年代 **Hopfield 网络**提出之后，H. Sompolinsky, A. Crisanti 和 H. J. Sommers 等人将其发展为**自旋玻璃模型**所衍生**无向神经网络**的**动态平均场理论**[^2]，研究网络运行时一般性的动力学性质，并描述了**有序-混沌相变**。由于无向神经网络的**时间演化、动态问题**类似于有向神经网络的**层间传递、深度问题**，S. S. Schoenholz, S. Ganguli, J. Pennington 和 J. Sohl-Dickstein 等人重新以现代的**有向（前馈）随机神经网络**结构进行了推导，他们的一系列理论工作已能一定程度上为网络结构和训练技巧的设计提供指导。
 
 笔记的这一章节架构如下：
 
@@ -140,6 +140,8 @@ $$
 q_{aa}^{l}=\frac{1}{N_{l}} \sum_{i=1}^{N_{l}}(\mathbf{h}_{i}^{l})^{2},\,\,\,\,\,q_{a b}^{l}=\frac{1}{N_{l}} \sum_{i=1}^{N_{l}} \mathbf{h}_{i}^{l}(\mathbf{x}^{0, a}) \mathbf{h}_{i}^{l}(\mathbf{x}^{0, b}) \quad a, b \in\{1,2\}
 $$
 
+### 4.2.1 单一输入与迭代长度映射 $\mathcal{V}(q_{aa})$
+
 **平均场近似**认为，$N _ {l-1}$ 很大时，$\mathbf{h} _ {i}^{l}=\sum _ {j} \mathbf{W} _ {i j}^{l} \phi(\mathbf{h} _ {j}^{l-1})+\mathbf{b} _ {i}^{l}$ 是许多独立随机变量的和，由**中心极限定理**，服从**高斯分布**，可用对高斯随机变量 $z$ 的平均取代对 $N_{l-1}$ 个神经元的平均。方差随着前向传播而传递：
 
 $$
@@ -164,7 +166,36 @@ $$
 * $\sigma _ b >0$ 时，总有稳定不动点 $q^ * >0.$
 
 ![deepmft_1](https://tablewarebox.files.wordpress.com/2019/04/deepmft_1.png)
-<div align="center">图1 $\phi(h)=\tanh(h)$深度学习与物理化学</div>
+<div align="center">图1  $\phi(h)=\tanh(h)$，宽度 $N_l=1000$ 的网络中 $q^l$ 的动力学。</div>
+
+<div align="center">(A)(B) $\sigma_b=0.3,\sigma_w=1.3,2.5,4.0$ 时的迭代长度映射 $\mathcal{V}$ 和迭代中向不动点（五角星）的收敛情况</div>
+
+<div align="center">(C)不动点 $q^*$ 作为 $\sigma _ w, \sigma _ b$ 的函数 (D)达到距不动点误差小于1%所需迭代次数</div>
+
+### 4.2.2 两输入与迭代相关映射 $\mathcal{C}(c _ {12},q _ {11},q _ {12})$
+
+当有两个输入 $\mathbf{x}^{0,1}, \mathbf{x}^{0,2}$ 时，$2\times2$ 的内积矩阵
+
+$$ 
+q_{a b}^{l}=\frac{1}{N_{l}} \sum_{i=1}^{N_{l}} \mathbf{h}_{i}^{l}(\mathbf{x}^{0, a}) \mathbf{h}_{i}^{l}(\mathbf{x}^{0, b}) \quad a, b \in\{1,2\}
+$$
+
+随前向传播变化，**平均场近似**下，$N _ {l-1}$ 很大时，$\mathbf{h}_{i}^{l}(\mathbf{x}^{0, a})$ 和 $\mathbf{h}_{i}^{l}(\mathbf{x}^{0, b})$ 的联合分布是许多独立随机变量的和，由**中心极限定理**，服从协方差为 $q_{ab}^l$ 的**二维高斯分布**，协方差矩阵随着前向传播而传递：
+
+$$
+\begin{aligned}
+    q_{12}^{l}&=\mathcal{C}(c_{12}^{l-1}, q_{11}^{l-1}, q_{22}^{l-1} | \sigma_{w}, \sigma_{b}) \\
+    &\equiv \sigma_{w}^{2} \int \mathcal{D} z_{1} \mathcal{D} z_{2} \phi(u_{1}) \phi(u_{2})+\sigma_{b}^{2}
+\end{aligned}
+$$
+
+$$ 
+u_{1}=\sqrt{q_{11}^{l-1}} z_{1}, \quad u_{2}=\sqrt{q_{22}^{l-1}}\left[c_{12}^{l-1} z_{1}+\sqrt{1-(c_{12}^{l-1})^{2}} z_{2}\right]
+$$
+
+$$ 
+\langle u_{a} u_{b}\rangle= q_{a b}^{l-1},\quad c_{12}^{l}=\frac{q_{12}^{l}}{\sqrt{q_{11}^{l}q_{22}^{l}}}
+$$
 
 ## 参考文献
 
