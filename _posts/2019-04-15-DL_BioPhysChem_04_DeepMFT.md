@@ -165,7 +165,7 @@ $$
 * $\sigma _ b =0, \sigma _ w >1$ 时，$q^*=0$ 为不稳定不动点，同时有另一稳定不动点 $q^ * >0.$
 * $\sigma _ b >0$ 时，总有稳定不动点 $q^ * >0.$
 
-![deepmft_1](https://tablewarebox.files.wordpress.com/2019/04/deepmft_1.png)
+![deepmft_1-1](https://tablewarebox.files.wordpress.com/2019/04/deepmft_1-1.png)
 <div align="center">图1  $\phi(h)=\tanh(h)$，宽度 $N_l=1000$ 的网络中 $q^l$ 的动力学。</div>
 
 <div align="center">(A)(B) $\sigma_b=0.3,\sigma_w=1.3,2.5,4.0$ 时的迭代长度映射 $\mathcal{V}$ 和迭代中向不动点（五角星）的收敛情况</div>
