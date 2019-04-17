@@ -43,11 +43,11 @@ tags:
 
 甘利俊一(Shun-ichi Amari) 建立的模型中，$N$ 个**神经元**由连续变量 $\{s_i(t)\in[-1,1]\},\,\,i=1,...,N$ 描述（对应自旋），“**突触矩阵**” $\mathbf{J}$ （对应自旋的耦合常数）表达它们的相互作用。每一时刻 $t$ 神经元的状态 $s_i(t)$ 由**场 $h_i(t)$** 决定：
 
-$$s_{i}(t)=\phi\left(g h_{i}(t)\right)$$
+$$s_{i}(t)=\phi(g h_{i}(t))$$
 
-其中 $\phi(x)$ 为**非线性激活函数**，可选为任意 S型函数，如 $\phi(x)=\tanh (x)$，需满足 $\phi(\pm\infty)=\pm 1, \phi(-x)=-\phi(x), \phi'(x)=0.$ 
+其中 $\phi(x)$ 为**非线性激活函数**，可选为任意 S型函数，如 $\phi(x)=\tanh (x)$，需满足 $\phi(\pm\infty)=\pm 1, \phi(-x)=-\phi(x), \phi'(x)>0.$ 
 
-$g$ 为**非线性指数**：$g\sim 0$ 时 $\phi(x)\sim x$，$g\to \infty$ 时 $\phi(x)\to \pm 1.$
+$g$ 为**非线性指数**，可以类比 $\beta=1/k_\mathrm{B}T$：$g\sim 0, T\to\infty$ 时 $\phi(x)\sim x$；$g\to \infty,T\to 0$ 时 $\phi(x)\to \pm 1.$
 
 时间演化的**动力学方程**为
 
@@ -65,19 +65,39 @@ $$
 \longleftrightarrow
 \begin{cases}
     \mathbf{h}^{l+1}=\mathbf{W}^{l+1} \mathbf{x}^{l}+\mathbf{b}^{l+1} \\
-    \mathbf{x}^{l}=\phi\left(\mathbf{h}^{l}\right)
+    \mathbf{x}^{l}=\phi(\mathbf{h}^{l})
 \end{cases}
 $$
 
-实际上这也是**无向神经网络**与**有向神经网络**的差别：无向神经网络的**时间演化**类似于有向神经网络的**层间传递**。从这一点看自旋玻璃类**无向神经网络**可以理解成**权重相同的无限层有向神经网络**。
+实际上这也是**无向神经网络**与**有向神经网络**的差别：无向神经网络的**时间演化、动态问题**类似于有向神经网络的**层间传递、深度问题**。从这一点看自旋玻璃类**无向神经网络**可以理解成**权重相同的无限层有向神经网络**。
 
-### 4.1.2 理论推导
+### 4.1.2 方程推导
 
-为处理动态问题，定义**时间关联函数**和**响应函数**的**生成泛函**：
+方程中包含的随机性来源于随机的耦合常数 $J_{ij}$。**动态问题的统计性质**也就是随机的 $J_{ij}$ 下运行路径 $\mathbf{h}(t)$ 的概率分布。然而概率分布往往无法直接计算，只能通过近似方法计算它的**矩(moment**)。**随机变量**概率分布的**矩**可以通过**矩生成函数(对应配分函数**)对**共轭变量**不断求导得到，类似地，**随机过程**概率分布的**矩**可以通过**生成泛函**对**共轭变量**不断求导得到。关于**生成泛函（路径积分）方法**的简介可以参考[^15]。
+
+生成泛函需要对 $J_{ij}$ 及所有可能的**路径** $\mathbf{h}(t)$ 做**泛函积分**，也就是说 $D \mathbf{h}=D[\mathbf{h}(t)].$ 引入 $\hat{\mathbf{h}}(t)$ 以满足时间演化方程，引入共轭场 $\mathbf{l}(t)$ 和 $\hat{\mathbf{l}}(t)$，定义**生成泛函**：
 
 $$
-Z=\int D h D \hat{h} \exp \left\{\sum_{i, t}\left(l_{i}(t) h_{i}(t)+i \hat{l}_{i}(t) i \hat{h}_{i}(t)\right)+L[h, \hat{h}]\right\}
+\begin{aligned}
+    Z_{\mathbf{J}}[\mathbf{l}(t),\mathbf{\hat{l}}(t)] &
+    =\int D \mathbf{h} D \mathbf{\hat{h}} \,\,p(\mathbf{h, \hat{h}})\exp \left\{\sum_{i, t}\left(l_{i}(t) h_{i}(t)+i \hat{l}_{i}(t) i \hat{h}_{i}(t)\right)\right\} \\
+    & =\int D \mathbf{h} D \mathbf{\hat{h}} \exp \left\{\sum_{i, t}\left(l_{i}(t) h_{i}(t)+i \hat{l}_{i}(t) i \hat{h}_{i}(t)\right)+L[\mathbf{h, \hat{h}}]\right\} \\
+\end{aligned}
+
 $$
+
+$$
+L[h, \hat{h}]=\sum_{i, t}-i \hat{h}_{i}(t)\left[(1+\partial_{t}) h_{i}(t)-\sum_{j} J_{i j} s_{j}(t)\right], \,\,Z_{\mathbf{J}}[\mathbf{0},\mathbf{0}]=1
+$$
+
+它的作用相当于平衡态统计物理中的**配分函数**，包含了系统演化的所有信息。动态问题中最重要的矩是**时间关联函数**和**响应函数**：
+
+$$ 
+C(t, t^{\prime})=\left.\frac{\partial Z}{\partial \mathbf{\hat{l}}(t^{\prime}) \partial \mathbf{\hat{l}}(t)}\right|_{\mathbf{l}(t)=\mathbf{\hat{l}}(t)=0},\,\,\,
+R(t, t^{\prime})=\left.\frac{\partial Z}{\partial \mathbf{\hat{l}}(t^{\prime})\partial \mathbf{l}(t)}\right|_{\mathbf{l}(t)=\mathbf{\hat{l}}(t)=0}
+$$
+
+### 4.1.3 有序—混沌相变
 
 ## 4.2 深度平均场：理论假设与高斯过程视角
 
@@ -122,3 +142,5 @@ $$
 [^13]: Dar Gilboa, Bo Chang, Minmin Chen, Greg Yang, Samuel S. Schoenholz, Ed H. Chi, and Jeffrey Pennington. **Dynamical isometry and a mean field theory of LSTMs and GRUs.** *arXiv preprint arXiv:1901.08987*, 2019.
 
 [^14]: Tatsuro Kawamoto, and Masashi Tsubaki. **Mean-field theory of graph neural networks in graph partitioning.** *arXiv preprint arXiv:1810.11908*, 2018.
+
+[^15]: Chow C, Buice M (2015) **Path integral methods for stochastic differential equations.** *The Journal of Mathematical Neuroscience* 5(1):8, DOI: 10.1186/s13408-015-0018-5
