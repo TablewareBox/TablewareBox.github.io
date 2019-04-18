@@ -170,7 +170,7 @@ $$
 
 <div align="center">(A)(B) $\sigma_b=0.3,\sigma_w=1.3,2.5,4.0$ 时的迭代长度映射 $\mathcal{V}$ 和迭代中向不动点（五角星）的收敛情况</div>
 
-<div align="center">(C)不动点 $q^*$ 作为 $\sigma _ w, \sigma _ b$ 的函数 (D)达到距不动点误差小于1%所需迭代次数</div>
+<div align="center">(C)不动点 $q^*$ 作为 $\sigma _ w, \sigma _ b$ 的函数 (D)距不动点误差小于1%所需迭代次数。蓝绿红三点为(A)(B)图中三个样本的位置</div>
 
 ### 4.2.2 两个输入与迭代相关映射 $\mathcal{C}(c _ {12},q _ {11},q _ {12})$
 
@@ -222,9 +222,16 @@ $$
 * $\chi _ 1<1$，则函数 $\mathcal{C}$ 在对角线上方，$c^ * =1$ 为稳定不动点，两个输入在前向传播过程中**越来越相似**；
 * $\chi _ 1>1$，则函数 $\mathcal{C}$ 在 $c=1$ 附近在对角线下方，$c^ * =1$ 为不稳定不动点，两个输入在前向传播过程中**逐渐分开**。
 
-由此 $\chi _ 1$ 可以被理解为“伸缩系数”。定量计算方法是考虑已达不动点的 $\mathbf{h}^l$ 对 $\mathbf{h}^{l-1}$ 的**雅各比矩阵** $\mathbf{J} _ {i j}^{l}=\partial \mathbf{h} _ i^l / \partial \mathbf{h} _ j^{l-1}=\mathbf{W} _ {i j}^{l} \phi^{\prime}(\mathbf{h} _ {j}^{l-1})$，前向传播中不动点附近的微扰 $\mathbf{h}^{l-1}+\mathbf{u}$ 会变为 $\mathbf{h}^{l}+\mathbf{J} \mathbf{u}$. 微扰放大的倍数 $\lVert\mathbf{J u}\rVert _ {2}^{2} / \lVert\mathbf{u}\rVert _ {2}^{2}$ 对微扰 $\mathbf{u}$，随机矩阵 $\mathbf{W}$，在 $i=1,...,N_l$ 近似高斯分布的 $\mathbf{h} _ i^l$ 平均后即为 $\chi _ 1$。因此 $\chi _ 1$ 
+由此 $\chi _ 1$ 可以被理解为“伸缩系数”。定量计算方法是考虑已达不动点的 $\mathbf{h}^l$ 对 $\mathbf{h}^{l-1}$ 的**雅各比矩阵** $\mathbf{J} _ {i j}^{l}=\partial \mathbf{h} _ i^l / \partial \mathbf{h} _ j^{l-1}=\mathbf{W} _ {i j}^{l} \phi^{\prime}(\mathbf{h} _ {j}^{l-1})$，前向传播中不动点附近的微扰 $\mathbf{h}^{l-1}+\mathbf{u}$ 会变为 $\mathbf{h}^{l}+\mathbf{J} \mathbf{u}$. 微扰放大的倍数 $\lVert\mathbf{J u}\rVert _ {2}^{2} / \lVert\mathbf{u}\rVert _ {2}^{2}$ 对微扰 $\mathbf{u}$，随机矩阵 $\mathbf{W}$，和在 $i=1,...,N_l$ 近似高斯分布的 $\mathbf{h} _ i^l$ 平均后即为 $\chi _ 1$。运用**雅各比矩阵**的传递性质，可以推广为之后的**动态等距**概念。
 
+![deepmft_2](https://tablewarebox.files.wordpress.com/2019/04/deepmft_2.png)
+<div align="center">图2  $\phi(h)=\tanh(h)$，宽度 $N _ l=1000$ 的网络中 $q _ {ab}^l$ 的动力学。</div>
 
+<div align="center">(A)(B) $\sigma_b=0.3,\sigma_w=1.3,2.5,4.0$ 时的迭代相关映射 $\mathcal{C}$ 和迭代中向不动点（五角星）的收敛情况</div>
+
+<div align="center">(C)不动点 $c^*$ 作为 $\sigma _ w, \sigma _ b$ 的函数 (D)不动点导数 $\chi _ 1$ 作为 $\sigma _ w, \sigma _ b$ 的函数。蓝绿红三点为(A)(B)图中三个样本的位置</div>
+
+### 4.2.3 有序—混沌相变
 
 ## 参考文献
 
