@@ -49,7 +49,7 @@ tags:
 
 ### 4.1.1 模型建立
 
-甘利俊一(Shun-ichi Amari) 建立的模型中，$N$ 个**神经元**由连续变量 $\{s_i(t)\in[-1,1]\},\,\,i=1,...,N$ 描述（对应自旋），“**突触矩阵**” $\mathbf{J}$ （对应自旋的耦合常数）表达它们的相互作用。每一时刻 $t$ 神经元的状态 $s_i(t)$ 由**场 $h_i(t)$** 决定：
+甘利俊一(Shun-ichi Amari) 建立的模型中，$N$ 个**神经元**由连续变量 $\{s_i(t)\in[-1,1]\},\,\,i=1,...,N$ 描述（对应自旋），“**突触矩阵**” $\mathbf{J}$ （对应自旋的耦合常数）表达它们的相互作用，$J _ {ij}\sim\mathcal{N}(J_0/N,1/N)$ 选为一组独立的高斯随机变量。每一时刻 $t$ 神经元的状态 $s_i(t)$ 由**场 $h_i(t)$** 决定：
 
 $$s_{i}(t)=\phi(g h_{i}(t))$$
 
@@ -79,9 +79,31 @@ $$
 
 实际上这也是**无向神经网络**与**有向神经网络**的差别：无向神经网络的**时间演化、动态问题**类似于有向神经网络的**层间传递、深度问题**。从这一点看自旋玻璃类**无向神经网络**可以理解成**权重相同的无限层有向神经网络**。
 
-### 4.1.2 方程推导
+我们知道平衡态时**序参量**有定值。因此考察动态问题的一个角度是将平衡态作为**序参量动态演化**的一个**稳定不动点**。**深度平均场理论**也采用了这种思路，关注前向传播中**序参量**的变化。在**自旋玻璃理论**[^15]中，序参量是**重叠度(overlap)矩阵**：
 
-方程中包含的随机性来源于随机的耦合常数 $J_{ij}$。**动态问题的统计性质**也就是随机的 $J_{ij}$ 下运行路径 $\mathbf{h}(t)$ 的概率分布。然而概率分布往往无法直接计算，只能通过近似方法计算它的**矩(moment**)。关于**生成泛函（路径积分）方法**的简介可以参考[^15]：
+$$
+q_{aa}=\frac{1}{N} \sum_{i=1}^{N}\sigma_{i,a}^{2},\quad q_{ab}=\frac{1}{N} \sum_{i=1}^{N}\sigma_{i,a}\sigma_{i,b}
+$$
+
+$$
+q_{\alpha \alpha}=\frac{1}{N} \sum_{i=1}^{N}\langle\sigma_{i}\rangle_{\alpha}^{2},\quad q_{\alpha \beta}=\frac{1}{N} \sum_{i=1}^{N}\langle\sigma_{i}\rangle_{\alpha}\langle\sigma_{i}\rangle_{\beta}
+$$
+
+**自重叠度(self-overlap**) $q _ {aa}, q _ {\alpha \alpha}$ 衡量**构型、复本 $a$** 或**态 $\alpha$** 的**大小**，交叉项 $q _ {ab}, q _ {\alpha \beta}$ 衡量**构型、复本 $a,b$** 或**态 $\alpha,\beta$** 间的**相似度**。自旋玻璃热力学的**复本方法(replica method)** 中，对随机的相互作用分布做平均时，解耦了不同自旋，但关联了不同复本。由此在不同温度下有**复本对称(replica symmetric, RS)平均场解**（交叉项 $q _ {ab}$ 全部相等，但不同于 $q _ {aa}$）、**一阶复本对称破缺(1RSB)平均场解**（交叉项 $q _ {ab}$ 有两个取值 $q _ 0,q _ 1$，类似于“**双稳**”）等。
+
+类似地，网络的不同输入可以类比自旋玻璃的不同**复本(replicas)** ，对网络的每一层有
+
+$$ 
+q_{aa}^{l}=\frac{1}{N_{l}} \sum_{i=1}^{N_{l}}[\mathbf{h}_{i}^{l}(\mathbf{x}^{0, a})]^{2},\,\,\,\,\,q_{a b}^{l}=\frac{1}{N_{l}} \sum_{i=1}^{N_{l}} \mathbf{h}_{i}^{l}(\mathbf{x}^{0, a}) \mathbf{h}_{i}^{l}(\mathbf{x}^{0, b}) \quad a, b \in\{1,2\}
+$$
+
+我们将在 4.2 节讨论**深度平均场理论**时继续展开。
+
+### 4.1.2 甘利俊一(Shun-ichi Amari) 的尝试求解
+
+### 4.1.3 动态平均场方程推导
+
+方程中包含的随机性来源于随机的耦合常数 $J_{ij}$。**动态问题的统计性质**也就是随机的 $J_{ij}$ 下运行路径 $\mathbf{h}(t)$ 的概率分布。然而概率分布往往无法直接计算，只能通过近似方法计算它的**矩(moment**)。关于**生成泛函（路径积分）方法**的简介可以参考[^16]：
 
 * **随机变量**概率分布的**矩**可以通过**矩生成函数(对应配分函数**)对**共轭变量**不断求导得到，
 * 类似地，**随机过程**概率分布的**矩**可以通过**生成泛函**对**共轭变量**不断求导得到。
@@ -108,7 +130,7 @@ C(t, t^{\prime})=\left.\frac{\partial Z}{\partial \mathbf{\hat{l}}(t^{\prime}) \
 R(t, t^{\prime})=\left.\frac{\partial Z}{\partial \mathbf{\hat{l}}(t^{\prime})\partial \mathbf{l}(t)}\right|_{\mathbf{l}(t)=\mathbf{\hat{l}}(t)=0}
 $$
 
-### 4.1.3 有序—混沌相变
+### 4.1.4 有序—混沌相变
 
 ## 4.2 深度平均场：理论假设与高斯过程视角
 
@@ -128,13 +150,7 @@ $$
 \mathbf{x}^{l}=\phi(\mathbf{h}^{l})
 $$
 
-**深度平均场理论**直接关注了前向传播中**序参量**的变化。在**自旋玻璃理论**[^16]中，序参量是**重叠度(overlap**)：
-
-$$
-q_{\alpha \alpha}=\frac{1}{N} \sum_{i=1}^{N}\langle\sigma_{i}\rangle_{\alpha}^{2},\,\,\,\,\,q_{\alpha \beta}=\frac{1}{N} \sum_{i=1}^{N}\langle\sigma_{i}\rangle_{\alpha}\langle\sigma_{i}\rangle_{\beta}
-$$
-
-**自重叠度(self-overlap**) $q_{\alpha \alpha}$ 衡量构型或态的**大小**，$q_{\alpha \beta}$ 衡量构型或态间的**相似度**。类似地，对网络的每一层有
+**深度平均场理论**直接关注了前向传播中**序参量**的变化。我们前面提到，网络的不同输入类似于自旋玻璃的不同**复本(replicas)** ，网络的每一层的“**序参量**”为
 
 $$ 
 q_{aa}^{l}=\frac{1}{N_{l}} \sum_{i=1}^{N_{l}}(\mathbf{h}_{i}^{l})^{2},\,\,\,\,\,q_{a b}^{l}=\frac{1}{N_{l}} \sum_{i=1}^{N_{l}} \mathbf{h}_{i}^{l}(\mathbf{x}^{0, a}) \mathbf{h}_{i}^{l}(\mathbf{x}^{0, b}) \quad a, b \in\{1,2\}
@@ -263,6 +279,6 @@ $$
 
 [^14]: Tatsuro Kawamoto, and Masashi Tsubaki. **Mean-field theory of graph neural networks in graph partitioning.** *arXiv preprint arXiv:1810.11908*, 2018.
 
-[^15]: Chow C, Buice M (2015) **Path integral methods for stochastic differential equations.** *The Journal of Mathematical Neuroscience* 5(1):8, DOI: 10.1186/s13408-015-0018-5.
+[^15]: Tommaso Castellani, and Andrea Cavagna. **Spin-glass theory for pedestrians.** *J. Stat. Phys.* (2005) P05012. DOI: 10.1088/1742-5468/2005/05/P05012.
 
-[^16]: Tommaso Castellani, and Andrea Cavagna. **Spin-glass theory for pedestrians.** *J. Stat. Phys.* (2005) P05012. DOI: 10.1088/1742-5468/2005/05/P05012.
+[^16]: Chow C, Buice M (2015) **Path integral methods for stochastic differential equations.** *The Journal of Mathematical Neuroscience* 5(1):8, DOI: 10.1186/s13408-015-0018-5.
