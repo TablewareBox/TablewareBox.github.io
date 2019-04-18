@@ -197,13 +197,13 @@ $$
 \langle u_{a} u_{b}\rangle= q_{a b}^{l-1},\quad c_{12}^{l}=\frac{q_{12}^{l}}{\sqrt{q_{11}^{l}q_{22}^{l}}}
 $$
 
-两个输入点在前向传播中的变化可以通过**相关系数** $c _ {12}^l$ 跟踪，$c _ {12}^l$ 在前向传播中逐渐收敛到**不动点** $c^*(\sigma _ w,\sigma _ b).$ 由于 $q _ {11}, q _ {22}$ 迅速收敛到不动点 $q^*(\sigma _ w,\sigma _ b)$，故可在相关系数的前向传播迭代中用 $q^*$ 代替 $q _ {11}, q _ {22}$：
+两个输入点在前向传播中的变化可以通过**相关系数** $c _ {12}^l$ 跟踪，$c _ {12}^l$ 在前向传播中逐渐收敛到**不动点** $c^ * (\sigma _ w,\sigma _ b).$ 由于 $q _ {11}, q _ {22}$ 迅速收敛到不动点 $q^ * (\sigma _ w,\sigma _ b)$，故可在相关系数的前向传播迭代中用 $q^ *$ 代替 $q _ {11}, q _ {22}$：
 
 $$
 c_{12}^{l}=\frac{1}{q^{*}} \mathcal{C}(c_{12}^{l-1}, q^{*}, q^{*} | \sigma_{w}, \sigma_{b})
 $$
 
-容易验证至少有一不动点 $c^*(\sigma _ w,\sigma _ b)=1.$ 不动点的稳定性可通过计算函数 $\mathcal{C}$ 在 $c^*$ 的斜率 $\chi _ 1$：
+容易验证至少有一不动点 $c^ * (\sigma _ w,\sigma _ b)=1.$ 不动点的稳定性可通过计算函数 $\mathcal{C}$ 在 $c^ * $ 的斜率 $\chi _ 1$：
 
 $$
 \begin{aligned}
@@ -219,8 +219,8 @@ $$
 \int \mathcal{D} z F(z) z=\int \mathcal{D} z F^{\prime}(z)
 $$
 
-* $\chi _ 1<1$，则函数 $\mathcal{C}$ 在对角线上方，$c^*=1$ 为稳定不动点，两个输入在前向传播过程中**越来越相似**；
-* $\chi _ 1>1$，则函数 $\mathcal{C}$ 在 $c=1$ 附近在对角线下方，$c^*=1$ 为不稳定不动点，两个输入在前向传播过程中**逐渐分开**。
+* $\chi _ 1<1$，则函数 $\mathcal{C}$ 在对角线上方，$c^ * =1$ 为稳定不动点，两个输入在前向传播过程中**越来越相似**；
+* $\chi _ 1>1$，则函数 $\mathcal{C}$ 在 $c=1$ 附近在对角线下方，$c^ * =1$ 为不稳定不动点，两个输入在前向传播过程中**逐渐分开**。
 
 由此 $\chi _ 1$ 可以被理解为“伸缩系数”。定量计算方法是考虑已达不动点的 $\mathbf{h}^l$ 对 $\mathbf{h}^{l-1}$ 的**雅各比矩阵** $\mathbf{J} _ {i j}^{l}=\partial \mathbf{h} _ i^l / \partial \mathbf{h} _ j^{l-1}=\mathbf{W} _ {i j}^{l} \phi^{\prime}(\mathbf{h} _ {j}^{l-1})$，前向传播中不动点附近的微扰 $\mathbf{h}^{l-1}+\mathbf{u}$ 会变为 $\mathbf{h}^{l}+\mathbf{J} \mathbf{u}$. 微扰放大的倍数 $\lVert\mathbf{J u}\rVert _ {2}^{2} / \lVert\mathbf{u}\rVert _ {2}^{2}$ 对微扰 $\mathbf{u}$，随机矩阵 $\mathbf{W}$，在 $i=1,...,N_l$ 近似高斯分布的 $\mathbf{h} _ i^l$ 平均后即为 $\chi _ 1$。因此 $\chi _ 1$ 
 
