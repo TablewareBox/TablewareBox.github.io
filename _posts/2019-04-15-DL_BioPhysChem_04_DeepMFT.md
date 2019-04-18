@@ -159,7 +159,7 @@ q^{0}=\frac{1}{N_{0}} \mathbf{x}^{0} \cdot \mathbf{x}^{0},\,\,\,\,\,
 q^{1}=\sigma_{w}^{2} q^{0}+\sigma_{b}^{2}
 $$
 
-函数 $\mathcal{V}(q)$ 为迭代的长度映射，对单调的非线性激活函数 $\phi$ 是**单调递增的凹函数**。$q^{l}=\mathcal{V}(q^{l-1}\vert\sigma _ w,\sigma _ b)$ 与单位线 $q^{l}=q^{l-1}$ 相交于不动点 $q^*(\sigma _ w,\sigma _ b).$ 不动点有以下几种情形：
+函数 $\mathcal{V}(q)$ 为迭代的长度映射，对单调的非线性激活函数 $\phi$ 是**单调递增的凹函数**。$q^{l}=\mathcal{V}(q^{l-1}\vert\sigma _ w,\sigma _ b)$ 与对角线 $q^{l}=q^{l-1}$ 相交于不动点 $q^*(\sigma _ w,\sigma _ b).$ 不动点有以下几种情形：
 
 * $\sigma _ b =0, \sigma _ w <1$ 时，唯一不动点为 $q^*=0$，前向传播中 $q$ 衰减为0.
 * $\sigma _ b =0, \sigma _ w >1$ 时，$q^*=0$ 为不稳定不动点，同时有另一稳定不动点 $q^ * >0.$
@@ -172,7 +172,7 @@ $$
 
 <div align="center">(C)不动点 $q^*$ 作为 $\sigma _ w, \sigma _ b$ 的函数 (D)达到距不动点误差小于1%所需迭代次数</div>
 
-### 4.2.2 两输入与迭代相关映射 $\mathcal{C}(c _ {12},q _ {11},q _ {12})$
+### 4.2.2 两个输入与迭代相关映射 $\mathcal{C}(c _ {12},q _ {11},q _ {12})$
 
 当有两个输入 $\mathbf{x}^{0,1}, \mathbf{x}^{0,2}$ 时，$2\times2$ 的内积矩阵
 
@@ -196,6 +196,35 @@ $$
 $$ 
 \langle u_{a} u_{b}\rangle= q_{a b}^{l-1},\quad c_{12}^{l}=\frac{q_{12}^{l}}{\sqrt{q_{11}^{l}q_{22}^{l}}}
 $$
+
+两个输入点在前向传播中的变化可以通过**相关系数** $c _ {12}^l$ 跟踪，$c _ {12}^l$ 在前向传播中逐渐收敛到**不动点** $c^*(\sigma _ w,\sigma _ b).$ 由于 $q _ {11}, q _ {22}$ 迅速收敛到不动点 $q^*(\sigma _ w,\sigma _ b)$，故可在相关系数的前向传播迭代中用 $q^*$ 代替 $q _ {11}, q _ {22}$：
+
+$$
+c_{12}^{l}=\frac{1}{q^{*}} \mathcal{C}(c_{12}^{l-1}, q^{*}, q^{*} | \sigma_{w}, \sigma_{b})
+$$
+
+容易验证至少有一不动点 $c^*(\sigma _ w,\sigma _ b)=1.$ 不动点的稳定性可通过计算函数 $\mathcal{C}$ 在 $c^*$ 的斜率 $\chi _ 1$：
+
+$$
+\begin{aligned}
+    \chi_{1} & \equiv\left.\frac{\partial c_{12}^{l}}{\partial c_{12}^{l-1}}\right|_{c=1} \\
+    &=\left.\sigma_{w}^{2} \int \mathcal{D} z_{1} \mathcal{D} z_{2} \phi^{\prime}(u_{1}) \phi^{\prime}(u_{2})\right|_{c=1}\\
+    & =\sigma_{w}^{2} \int \mathcal{D} z\left[\phi^{\prime}(\sqrt{q^{*} z})\right]^{2}
+\end{aligned}
+$$
+
+推导利用了高斯随机变量的分部积分性质：
+
+$$
+\int \mathcal{D} z F(z) z=\int \mathcal{D} z F^{\prime}(z)
+$$
+
+* $\chi _ 1<1$，则函数 $\mathcal{C}$ 在对角线上方，$c^*=1$ 为稳定不动点，两个输入在前向传播过程中**越来越相似**；
+* $\chi _ 1>1$，则函数 $\mathcal{C}$ 在 $c=1$ 附近在对角线下方，$c^*=1$ 为不稳定不动点，两个输入在前向传播过程中**逐渐分开**。
+
+由此 $\chi _ 1$ 可以被理解为“伸缩系数”。定量计算方法是考虑已达不动点的 $\mathbf{h}^l$ 对 $\mathbf{h}^{l-1}$ 的**雅各比矩阵** $\mathbf{J} _ {i j}^{l}=\partial \mathbf{h} _ i^l / \partial \mathbf{h} _ j^{l-1}=\mathbf{W} _ {i j}^{l} \phi^{\prime}(\mathbf{h} _ {j}^{l-1})$，前向传播中不动点附近的微扰 $\mathbf{h}^{l-1}+\mathbf{u}$ 会变为 $\mathbf{h}^{l}+\mathbf{J} \mathbf{u}$. 微扰放大的倍数 $\lVert\mathbf{J u}\rVert _ {2}^{2} / \lVert\mathbf{u}\rVert _ {2}^{2}$ 对微扰 $\mathbf{u}$，随机矩阵 $\mathbf{W}$，在 $i=1,...,N_l$ 近似高斯分布的 $\mathbf{h} _ i^l$ 平均后即为 $\chi _ 1$。因此 $\chi _ 1$ 
+
+
 
 ## 参考文献
 
