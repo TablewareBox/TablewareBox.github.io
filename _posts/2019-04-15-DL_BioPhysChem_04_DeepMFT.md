@@ -49,26 +49,26 @@ tags:
 
 ### 4.1.1 模型建立
 
-甘利俊一(Shun-ichi Amari) 建立的模型中，$N$ 个**神经元**由连续变量 $\{s_i(t)\in[-1,1]\},\,\,i=1,...,N$ 描述（对应自旋），“**突触矩阵**” $\mathbf{J}$ （对应自旋的耦合常数）表达它们的相互作用，$J _ {ij}\sim\mathcal{N}(J_0/N,1/N)$ 选为一组独立的高斯随机变量。每一时刻 $t$ 神经元的状态 $s_i(t)$ 由**场 $h_i(t)$** 决定：
+甘利俊一(Shun-ichi Amari) 建立的模型中，$N$ 个**神经元**由连续变量 $\{s_i(t)\in[-1,1]\},\,\,i=1,...,N$ 描述（对应自旋），“**突触矩阵**” $\mathbf{J}$ （对应自旋的耦合常数）表达它们的相互作用，$J _ {ij}\sim\mathcal{N}(J_0/N,J^2/N)$ 选为一组独立的高斯随机变量。每一时刻 $t$ 神经元的状态 $s_i(t)$ 由**局域场 $h_i(t)$** 决定：
 
-$$s_{i}(t)=\phi(g h_{i}(t))$$
+$$s_{i}(t)=\phi(h_{i}(t))$$
 
-其中 $\phi(x)$ 为**非线性激活函数**，可选为任意 S型函数，如 $\phi(x)=\tanh (x)$，需满足 $\phi(\pm\infty)=\pm 1, \phi(-x)=-\phi(x), \phi'(x)>0.$ 
+其中 $\phi(x)$ 为**非线性激活函数**，可选为任意 S型函数，如 $\phi(x)=\tanh (gx)$，需满足 $\phi(\pm\infty)=\pm 1, \phi(-x)=-\phi(x), \phi'(x)>0.$ 
 
-$g$ 为**非线性指数**，可以类比 $\beta=1/k_\mathrm{B}T$：$g\sim 0, T\to\infty$ 时 $\phi(x)\sim x$；$g\to \infty,T\to 0$ 时 $\phi(x)\to \pm 1.$
+$g$ 为**非线性指数**，可以类比 $\beta=1/k_\mathrm{B}T$：$g\to 0, T\to\infty$ 时 $\phi(x)\sim gx$；$g\to \infty,T\to 0$ 时 $\phi(x)\to \pm 1.$
 
 时间演化的**动力学方程**为
 
 $$
-\partial_{t} h_{i}=-h_{i}+\sum_{j=1}^{N} J_{i j} s_{j}+\theta_i=-h_{i}+\sum_{j=1}^{N} J_{i j} \phi(g h_{j})+\theta_i
+\partial_{t} h_{i}=-h_{i}+\sum_{j=1}^{N} J_{i j} s_{j}=-h_{i}+\sum_{j=1}^{N} J_{i j} \phi(h_{j})
 $$
 
 若将其移项，可以看出它和前馈神经网络的关系：
 
 $$
 \begin{cases}
-    h_{i}+\partial_{t} h_{i}=\sum_{j=1}^{N} J_{i j} s_{j}+\theta_i \\
-    s_i=\phi(g h_{i})
+    h_{i}+\partial_{t} h_{i}=\sum_{j=1}^{N} J_{i j} s_{j} \\
+    s_i=\phi(h_{i})
 \end{cases}
 \longleftrightarrow
 \begin{cases}
@@ -120,6 +120,11 @@ $$
 我们将在 4.2 节讨论**深度平均场理论**时继续展开。
 
 ### 4.1.2 Amari 解
+
+Amari 最初提出的解是**朴素平均场**近似的结果，只能描述最简单的静态性质。
+
+* **假设1：**$N$ 足够大时，由于受前一时刻大量自旋的影响，由**中心极限定理**，所有 $h _ {i}(t)$ 相互独立且满足高斯分布。
+* **假设2：**
 
 ### 4.1.3 动态平均场方程推导
 
@@ -210,7 +215,7 @@ $$
 
 ### 4.2.2 两个输入与迭代相关映射 $\mathcal{C}(c _ {12},q _ {11},q _ {12})$
 
-当有两个输入 $\mathbf{x}^{0,1}, \mathbf{x}^{0,2}$ 时，$2\times2$ 的内积矩阵
+当有两个输入 $\mathbf{x}^{0,1}, \mathbf{x}^{0,2}$ 时，$2\times2$ 的重叠矩阵
 
 $$ 
 q_{a b}^{l}=\frac{1}{N_{l}} \sum_{i=1}^{N_{l}} \mathbf{h}_{i}^{l}(\mathbf{x}^{0, a}) \mathbf{h}_{i}^{l}(\mathbf{x}^{0, b}) \quad a, b \in\{1,2\}
@@ -239,7 +244,7 @@ $$
 c_{12}^{l}=\frac{1}{q^{*}} \mathcal{C}(c_{12}^{l-1}, q^{*}, q^{*} | \sigma_{w}, \sigma_{b})
 $$
 
-容易验证至少有一不动点 $c^ * (\sigma _ w,\sigma _ b)=1.$ 不动点的稳定性可通过计算函数 $\mathcal{C}$ 在 $c^ * $ 的斜率 $\chi _ 1$：
+容易验证至少有一不动点 $c^ * (\sigma _ w,\sigma _ b)=1.$ 不动点的稳定性可通过计算函数 $\mathcal{C}$ 在 $c^ *$ 的斜率 $\chi _ 1$：
 
 $$
 \begin{aligned}
