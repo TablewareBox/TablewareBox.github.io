@@ -49,26 +49,26 @@ tags:
 
 ### 4.1.1 模型建立
 
-甘利俊一(Shun-ichi Amari) 建立的模型中，$N$ 个**神经元**由连续变量 $\{s_i(t)\in[-1,1]\},\,\,i=1,...,N$ 描述（对应自旋），“**突触矩阵**” $\mathbf{J}$ （对应自旋的耦合常数）表达它们的相互作用，$J _ {ij}\sim\mathcal{N}(J_0/N,J^2/N)$ 选为一组独立的高斯随机变量。每一时刻 $t$ 神经元的状态 $s_i(t)$ 由**局域场 $h_i(t)$** 决定：
+甘利俊一(Shun-ichi Amari) 建立的模型中，$N$ 个**神经元**由连续变量 $\{s_i(t)\in[-1,1]\},\,\,i=1,...,N$ 描述（对应自旋），“**突触矩阵**” $\mathbf{W}$（对应自旋的耦合常数）表达它们的相互作用，阈值 $-\mathbf{b}$ 相当于外场。$W _ {ij}\sim\mathcal{N}(w_0/N,\sigma _ w^2/N),b _ i\sim\mathcal{N}(b_0,\sigma _ b^2)$ 选为一组独立的高斯随机变量。每一时刻 $t$ 神经元的状态 $x_i(t)$ 由**局域场 $h_i(t)$** 决定：
 
-$$s_{i}(t)=\phi(h_{i}(t))$$
+$$x_{i}(t)=\phi(h_{i}(t))$$
 
-其中 $\phi(x)$ 为**非线性激活函数**，可选为任意 S型函数，如 $\phi(x)=\tanh (gx)$，需满足 $\phi(\pm\infty)=\pm 1, \phi(-x)=-\phi(x), \phi'(x)>0.$ 
+其中 $\phi(h)$ 为**非线性激活函数**，可选为任意 S型函数，如 $\phi(h)=\tanh (gh)$，需满足 $\phi(\pm\infty)=\pm 1, \phi(-h)=-\phi(h), \phi'(h)>0.$ 
 
-$g$ 为**非线性指数**，可以类比 $\beta=1/k_\mathrm{B}T$：$g\to 0, T\to\infty$ 时 $\phi(x)\sim gx$；$g\to \infty,T\to 0$ 时 $\phi(x)\to \pm 1.$
+$g$ 为**非线性指数**，可以类比 $\beta=1/k_\mathrm{B}T$：$g\to 0, T\to\infty$ 时 $\phi(h)\sim gh$；$g\to \infty,T\to 0$ 时 $\phi(h)\to \pm 1.$
 
 时间演化的**动力学方程**为
 
 $$
-\partial_{t} h_{i}=-h_{i}+\sum_{j=1}^{N} J_{i j} s_{j}=-h_{i}+\sum_{j=1}^{N} J_{i j} \phi(h_{j})
+\partial_{t} h_{i}=-h_{i}+\sum_{j=1}^{N} W_{i j} x_{j}+b_i=-h_{i}+\sum_{j=1}^{N} W_{i j} \phi(h_{j})+b_i
 $$
 
 若将其移项，可以看出它和前馈神经网络的关系：
 
 $$
 \begin{cases}
-    h_{i}+\partial_{t} h_{i}=\sum_{j=1}^{N} J_{i j} s_{j} \\
-    s_i=\phi(h_{i})
+    h_{i}+\partial_{t} h_{i}=\sum_{j=1}^{N} W_{i j} x_{j}+b_i \\
+    x_i=\phi(h_{i})
 \end{cases}
 \longleftrightarrow
 \begin{cases}
@@ -109,7 +109,7 @@ q_{a b}=\left[
 \right]
 $$
 
-<div align="center">图1  1RSB 平均场解的典型**重叠度矩阵**。详见自旋玻璃章节</div>
+<div align="center">图1  1RSB 平均场解的典型<b>重叠度矩阵</b>。详见自旋玻璃章节</div>
 
 类似地，网络的不同输入可以类比自旋玻璃的不同**复本(replicas)** ，对网络的每一层有
 
@@ -121,12 +121,86 @@ $$
 
 ### 4.1.2 Amari 解
 
-Amari 最初提出的解是**朴素平均场**近似的结果，只能描述最简单的静态性质。
+Amari 最初提出的解是**朴素平均场**近似的结果，只能描述简单的动态性质。
 
-* **假设1：**$N$ 足够大时，由于受前一时刻大量自旋的影响，由**中心极限定理**，所有 $h _ {i}(t)$ 相互独立且满足高斯分布。
-* **假设2：**
+* **假设1(平均场近似)**：$N$ 足够大时，由于受前一时刻大量自旋的影响，由**中心极限定理**，所有 $h _ {i}(t)$ 相互独立且满足高斯分布：$h _ {i}(t)\sim\mathcal{N}(m(t),q(t))$。
+
+由此所有 $h _ i(t)$ 的函数 $f(h)$ 对应的宏观量可通过对 $h _ i(t)$ 高斯分布的积分得到：
+
+$$
+\begin{aligned}
+    F & =\int_{-\infty}^{\infty} \frac{1}{\sqrt{2 \pi q(t)}} f(h) \exp \left\{-\frac{(h-m(t))^{2}}{2 q(t)}\right\} \mathrm{d} h \\
+    &=\int \mathcal{D}z \cdot f\left[\sqrt{q(t)}z+m(t)\right],\quad \mathcal{D}z =\frac{\mathrm{d} z}{\sqrt{2 \pi}} e^{-z^{2}/2}
+\end{aligned}
+
+$$
+
+对时间演化方程积分可得，
+
+$$
+h_{i}(t)=\int_{0}^{t}\left\{\sum_j w_{i j} x_{j}(\tau)+b_{i}\right\} e^{\tau-t} \mathrm{d} \tau+h_{i}(0) e^{-t}
+$$
+
+时间足够长时，最后一项可以忽略，定义
+
+$$
+\tilde{x}_{j}(t)=\int_{0}^{t} x_{j}(\tau) e^{t-t} d \tau \quad\Longrightarrow\quad h_{i}(t)=\frac{1}{N} \sum_{j} w_{i j} \tilde{x}_{j}(t)+b_{i}
+$$
+
+* **假设2(时间相关假设)**：对足够大的 $N,t$，
+
+$$ 
+\frac{1}{N} \sum_{i=1}^{N} x_i(t)\tilde{x}_{i}(t) \simeq \frac{1}{N} \sum_{i=1}^{N} x_{i}^{2}(t)=\int \mathcal{D}z \cdot \phi^2\left[\sqrt{q(t)}z+m(t)\right]
+$$
+
+对时间演化方程做平均可以得到**序参量的演化方程**：
+
+$$
+\begin{aligned}
+    \partial_t m(t)& =\frac{1}{N}\sum_i \partial_t h_i(t)\\
+    &=-\left(\frac{1}{N}\sum_i h_{i}(t)\right)+\sum_j \left(\frac{1}{N}\sum_i w_{ij}\right)x_j+\left(\frac{1}{N}\sum_i b_{i}\right) \\
+    &=-m(t)+w_0\cdot\frac{1}{N}\sum_j x_j+b_0 \\
+    &=-m(t)+w_0\cdot\int \mathcal{D}z \, \phi\left[\sqrt{q(t)}z+m(t)\right]+b_0\\
+    &\equiv -m(t)+\mathcal{U}(m(t),q(t)|w_0,b_0)\\
+    & \\
+    \frac{1}{2}\partial_t q(t)& =\frac{1}{N}\sum_i [h_i(t)-m(t)][\partial_t h_i(t)-\partial_t m(t)]=\operatorname{Cov}[h_i(t),\partial_t h_i(t)]\\
+    &=\sum_j x_j\operatorname{Cov}[h_i,w_{ij}] + \operatorname{Cov}[h_i,b_i]-q(t) \\
+    &=\left[\sum_j x_j\left(\sum_i\tilde{x}_i \frac{\sigma_w^2}{N}\delta_{ij}+\sum_j\operatorname{Cov}[b_i,w_{ij}]\right)\right] \\
+    &\quad\quad\quad+ \left[ \sum_{j} \tilde{x}_{j} \operatorname{Cov}[w_{ij}, b_i]+\operatorname{Cov}(b_i,b_i) \right]  -q(t) \\
+    &=\sigma_w^2 \cdot \frac{1}{N}\sum_j x_j \tilde{x}_j + \sigma_b^2-q(t)\\
+    &=-q(t)+\sigma_w^2 \int \mathcal{D}z \cdot \phi^2\left[\sqrt{q(t)}z+m(t)\right] +\sigma_b^2\\
+    &\equiv -q(t)+\mathcal{V}(m(t),q(t)|\sigma_w^2,\sigma_b^2)
+\end{aligned}
+$$
+
+不动点处有
+
+$$
+\left\{
+\begin{aligned}
+    m^*&=\mathcal{U}(m^*,q^*|w_0,b_0)=w_0\int \mathcal{D}z \cdot \phi(\sqrt{q^*}z+ m^*)+b_0\\
+    q^*&=\mathcal{V}(m^*,q^*|\sigma_w^2,\sigma_b^2)=\sigma_w^2 \int \mathcal{D}z \cdot \phi^2(\sqrt{q^*}z+m^*) +\sigma_b^2
+\end{aligned}
+\right.
+$$
+
+这已经是后文**深度平均场理论**的主要方法之一。不同的是，深度平均场理论中，随机初始化一般会使 $w _ 0=b _ 0=0$，即将表达式简化为
+
+$$
+q^*=\sigma_w^2 \int \mathcal{D}z \cdot \phi^2(\sqrt{q^*}z)+\sigma_b^2
+$$
+
+这样自动满足了 
+
+$$
+\left.\frac{\partial \mathcal{V}(q|\sigma_w^2,\sigma_b^2)}{\partial q}\right|_{q=q^*} <1
+$$
+
+已经解决了单一输入（没有复本）时不动点稳定性的问题，要解决的是两输入的相关问题。Amari 认为，网络的稳定性首先应由单一输入（没有复本）时，不动点的稳定性表示。
 
 ### 4.1.3 动态平均场方程推导
+
+> 太长不看版：Amari 解已经能描述简单的动态性质，**深度平均场理论**也主要使用了类似她的推导方法，若本节太难可直接跳至 4.2。**动态平均场理论**对时间相关的推导更严密一些，并且考虑了复本（不同输入）间的相关性随时间的演化。
 
 方程中包含的随机性来源于随机的耦合常数 $J_{ij}$。**动态问题的统计性质**也就是随机的 $J_{ij}$ 下运行路径 $\mathbf{h}(t)$ 的概率分布。然而概率分布往往无法直接计算，只能通过近似方法计算它的**矩(moment**)。关于**生成泛函（路径积分）方法**的简介可以参考[^16]：
 
@@ -165,20 +239,20 @@ $$
 * $D$ 层**权重** $\mathbf{W}^1,...,\mathbf{W}^D$ 和**偏置** $\mathbf{b}^1,...,\mathbf{b}^D$。$\mathbf{x}^l, \mathbf{b}^l \in\mathbb{R}^{N_l},\mathbf{W}^l \in\mathbb{R}^{N_l\times N_{l-1}}.$
 * 对于**随机初始化**的神经网络，$\mathbf{W} _ {ij}^l,\mathbf{b} _ {i}^l$ 为独立的零均值高斯随机变量，方差设定使得 $l-1$ 层神经元对 $l$ 层神经元场的贡献为 $\mathcal{O}(1)$，且选定后不再变化：
 
-$$\mathbf{W}_{ij}^l \sim \mathcal{N}(0,\sigma_{w}^{2} / N_{l-1}),\,\,\,\,\,\mathbf{b}_{i}^l \sim \mathcal{N}(0,\sigma_{b}^{2})
+$$\mathbf{W}_{ij}^l \sim \mathcal{N}(0,\sigma_{w}^{2} / N_{l-1}),\quad\mathbf{b}_{i}^l \sim \mathcal{N}(0,\sigma_{b}^{2})
 $$
 
 * 前向传播的动力学为
 
 $$
-\mathbf{h}^{l}=\mathbf{W}^{l} \mathbf{x}^{l-1}+\mathbf{b}^{l},\,\,\,\,\,
+\mathbf{h}^{l}=\mathbf{W}^{l} \mathbf{x}^{l-1}+\mathbf{b}^{l},\quad
 \mathbf{x}^{l}=\phi(\mathbf{h}^{l})
 $$
 
 **深度平均场理论**直接关注了前向传播中**序参量**的变化。我们前面提到，网络的不同输入类似于自旋玻璃的不同**复本(replicas)** ，网络的每一层的“**序参量**”为
 
 $$ 
-q_{aa}^{l}=\frac{1}{N_{l}} \sum_{i=1}^{N_{l}}(\mathbf{h}_{i}^{l})^{2},\,\,\,\,\,q_{a b}^{l}=\frac{1}{N_{l}} \sum_{i=1}^{N_{l}} \mathbf{h}_{i}^{l}(\mathbf{x}^{0, a}) \mathbf{h}_{i}^{l}(\mathbf{x}^{0, b}) \quad a, b \in\{1,2\}
+q_{aa}^{l}=\frac{1}{N_{l}} \sum_{i=1}^{N_{l}}(\mathbf{h}_{i}^{l})^{2},\quad q_{a b}^{l}=\frac{1}{N_{l}} \sum_{i=1}^{N_{l}} \mathbf{h}_{i}^{l}(\mathbf{x}^{0, a}) \mathbf{h}_{i}^{l}(\mathbf{x}^{0, b}) \quad a, b \in\{1,2\}
 $$
 
 ### 4.2.1 单一输入与迭代长度映射 $\mathcal{V}(q_{aa})$
@@ -195,8 +269,8 @@ $$
 $$
 
 $$ 
-\mathcal{D} z=\frac{\mathrm{d} z}{\sqrt{2 \pi}} e^{-z^{2}/2},\,\,\,\,\,
-q^{0}=\frac{1}{N_{0}} \mathbf{x}^{0} \cdot \mathbf{x}^{0},\,\,\,\,\,
+\mathcal{D} z=\frac{\mathrm{d} z}{\sqrt{2 \pi}} e^{-z^{2}/2},\quad
+q^{0}=\frac{1}{N_{0}} \mathbf{x}^{0} \cdot \mathbf{x}^{0},\quad
 q^{1}=\sigma_{w}^{2} q^{0}+\sigma_{b}^{2}
 $$
 
