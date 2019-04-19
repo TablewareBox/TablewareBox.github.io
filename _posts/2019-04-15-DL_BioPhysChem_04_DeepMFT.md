@@ -104,7 +104,7 @@ q_{a b}=\left[
           &       &       & 1     & q_{1} & q_{1} & \\
           & q_{0} &       & q_{1} & 1     & q_{1} & \\
           &       &       & q_{1} & q_{1} & 1     & \\
-          &\vdots &       &       &       &       &{\ddots}
+          &\vdots &       &       &       &       & \ddots
     \end{array}
 \right]
 $$
