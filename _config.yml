@@ -68,8 +68,8 @@ math_engine_opts:
 # Gitalk
 gitalk:
   enable: true    #是否开启Gitalk评论
-  clientID: 102d578c331a45cab04d                            #生成的clientID
-  clientSecret: ebb2b18b5a0cda77992b5df6258a1b5bb060263f    #生成的clientSecret
+  clientID: d89a16d2bf588fecbad2                            #生成的clientID
+  clientSecret: 74aeff090babc6c96abe2cdf36dc87b160251606    #生成的clientSecret
   repo: tablewarebox.github.io    #仓库名称
   owner: TablewareBox    #github用户名
   admin: TablewareBox
@@ -83,8 +83,8 @@ gitalk:
 ba_track_id: b50bf2b12b5338a1845e33832976fd68
 
 # Google Analytics
-ga_track_id: 'UA-90855596-1'            # Format: UA-xxxxxx-xx
-ga_domain: qiubaiying.top               # 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto
+ga_track_id: 'UA-138656314-1'            # Format: UA-xxxxxx-xx
+ga_domain: tablewarebox.github.io               # 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto
 
 
 
