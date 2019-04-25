@@ -71,11 +71,18 @@ $$
 > 这一方法在机器学习的**变分推断(Variational Inference)** 中被广泛用于对目标分布的近似，**变分自由能**在机器学习中被称为**变分下界(Variational Lower Bound, V-LB)** 或**证据下界(Evidence Lower Bound, ELBO)**。
 
 $$ 
-\begin{aligned} \log Z=\log p(\mathbf{x}) &=\log \int_{\mathbf{h}} p(\mathbf{x,h}) \\ 
-&=\log \int_{\mathbf{h}} p(\mathbf{x,h}) \frac{q(\mathbf{h})}{q(\mathbf{h})} \\ 
-&=\log \left(\mathbb{E}_{q}\left[\frac{p(\mathbf{x,h})}{q(\mathbf{h})}\right]\right) \\ 
-& \geq \mathbb{E}_{q}[\log p(\mathbf{x,h})]-\mathbb{E}_{q}[\log q(\mathbf{h})] \\
-&=-\mathbb{E}_{q}[H(\mathbf{x,h})]+S(q)=-E(q)+S(q)\end{aligned}
+\begin{aligned} \log Z=\log \int_{\mathbf{h}}\mathrm{d}\mathbf{h}\, p(\mathbf{x,h}) =\log p(\mathbf{x})
+&=\mathbb{E}_{q(\mathbf{h})} \log p(\mathbf{x})\\
+&=\mathbb{E}_{q(\mathbf{h})} \log \frac{p(\mathbf{x,h})}{p(\mathbf{h|x})}\\
+&=\mathbb{E}_{q(\mathbf{h})} \log \frac{q(\mathbf{h})p(\mathbf{x,h})}{q(\mathbf{h})p(\mathbf{h|x})}\\
+&=\mathbb{E}_{q(\mathbf{h})}\log \frac{q(\mathbf{h})}{p(\mathbf{h|x})}
++\mathbb{E}_{q(\mathbf{h})}\log p(\mathbf{x,h})
+-\mathbb{E}_{q(\mathbf{h})}\log q(\mathbf{h})\\
+&=KL[q(\mathbf{h})\Vert p(\mathbf{h|x})]
+-\beta E[q(\mathbf{h})]+S[q(\mathbf{h})]\\
+&=KL[q(\mathbf{h})\Vert p(\mathbf{h|x})]-\beta F[q(\mathbf{h})]\\
+&\geq -\beta F[q(\mathbf{h})]
+\end{aligned}
 $$
 
 一种最简单的 $q$ 选法是忽略不同自旋间的统计相关性，即**朴素平均场**近似：
