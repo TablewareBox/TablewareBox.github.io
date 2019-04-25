@@ -28,7 +28,10 @@ tags:
 
 <div align="center">图1  25×25的 Hopfield 网络权重矩阵中存储了4个25像素的<b>目标数据(模式)</b>。网络运行的时间演化中，任意的输入都会向目标数据(模式)靠近</div>
 
+蛋白折叠更多地表现出**漏斗状势能面**，而在不同种类的自旋玻璃模型中，往往有更多能量相近的**亚稳态**，
 
+![rugged](https://tablewarebox.files.wordpress.com/2019/04/intro_2_rugged.png)
+<div align="center">图2  25×25的 Hopfield 网络权重矩阵中存储了4个25像素的<b>目标数据(模式)</b>。网络运行的时间演化中，任意的输入都会向目标数据(模式)靠近</div>
 
 ## 参考文献
 
