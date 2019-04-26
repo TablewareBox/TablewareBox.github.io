@@ -22,16 +22,25 @@ tags:
 
 让我们从蛋白质折叠的一个**早期模型**[^1][^2][^3]，以及那时的神经网络第二次浪潮——**Hopfield联想记忆神经网络**[^4]谈起。
 
-而 **Hopfield 联想记忆神经网络**的核心思想同样是，将目标数据存储在神经元间的**相互作用强度(权重)** 中，让它成为总能量的极小值点。这样通过类似的数据 **“唤醒”记忆**，通过一步步修正，**联想**出目标数据的过程，就对应着势能面上的**能量极小化**过程。[^5]
+
+
+而 **Hopfield 联想记忆神经网络**的核心思想同样是，将目标数据存储在神经元间的**相互作用强度(权重)** 中，让它成为总能量的极小值点。这样通过类似的数据 **“唤醒”记忆**，通过神经元状态的**时间演化**一步步修正，**联想**出目标数据的过程，就对应着势能面上的**能量极小化**过程[^5]。
 
 ![hopfield](https://tablewarebox.files.wordpress.com/2019/04/intro_1_hopfield.png)
 
 <div align="center">图1  25×25的 Hopfield 网络权重矩阵中存储了4个25像素的<b>目标数据(模式)</b>。网络运行的时间演化中，任意的输入都会向目标数据(模式)靠近</div>
 
-蛋白折叠更多地表现出**漏斗状势能面**，而在不同种类的自旋玻璃模型中，往往有更多能量相近的**亚稳态**，
+蛋白折叠更多地表现出**漏斗状势能面**[^6]，或是有不同构象有不同功能的蛋白质表现为 **“多漏斗”势能面**[^7]；而在不同种类的自旋玻璃模型中，往往有更多能量相近的**亚稳态**，并不一定有明显的“漏斗”。[^8]
 
 ![rugged](https://tablewarebox.files.wordpress.com/2019/04/intro_2_rugged.png)
-<div align="center">图2  25×25的 Hopfield 网络权重矩阵中存储了4个25像素的<b>目标数据(模式)</b>。网络运行的时间演化中，任意的输入都会向目标数据(模式)靠近</div>
+<div align="center">图2  典型的<b>粗粒化蛋白质</b>和<b>自旋玻璃模型</b>势能面。</div>
+
+![multifunnel](https://tablewarebox.files.wordpress.com/2019/04/intro_3_multifunnel.png)
+<div align="center">图3  某多功能泛素蛋白的多漏斗势能面，用不连通图(disconnectivity graph)表示。</div>
+
+现在我们回望整个发展历程，会发现**自旋玻璃模型**，不仅完全精确地描述了早期的**无向神经网络**结构，同时也是
+
+早期的自旋玻璃类无向神经网络，在现代结构中已经演变为拥有不同架构的前馈神经网络等，
 
 ## 参考文献
 
@@ -44,3 +53,9 @@ tags:
 [^4]: J. J. Hopfield. **Neural networks and physical systems with emergent collective computational abilities.** *Proc. Nati. Acad. Sci. USA* **1982**, *79*, 2554-2558. DOI: 10.1073/pnas.79.8.2554
 
 [^5]: David J.C. MacKay. **Information Theory, Inference, and Learning Algorithms (ITILA).**
+
+[^6]: José Nelson Onuchic, Zaida Luthey-Schulten and Peter G. Wolynes. **Theory of protein folding: the energy landscape perspective.** *Annu. Rev. Phys. Chem.*  **1997**, *48*, 545–600. DOI: 10.1146/annurev.physchem.48.1.545
+
+[^7]: Konstantin Röder, Jerelle A. Joseph, Brooke E. Husic, and David J. Wales. **Energy Landscapes for Proteins: From Single Funnels to Multifunctional Systems.** *Adv. Theory Simul.* **2019**, 1800175. DOI: 10.1002/adts.201800175
+
+[^8]: Wolfhard Janke (Ed.) **Rugged Free Energy Landscapes: Common Computational Approaches to Spin Glasses, Structural Glasses and Biological Macromolecules.** *Lect. Notes Phys.* 736 (Springer, Berlin Heidelberg 2008), DOI: 10.1007/978-3-540-74029-2
