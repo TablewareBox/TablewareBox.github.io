@@ -31,8 +31,8 @@ tags:
 
 - [x] 体系简介 - scheme 1
 - [x] 势能面(力场)和运动方程 - scheme 2
-- [ ] 构象空间探索 - scheme 3
-- [ ] 平衡、玻尔兹曼分布&宏观热力学、动力学性质统计 - scheme 4
+- [ ] 构象空间探索、遍历性原理&化学平衡 - scheme 3
+- [ ] 宏观热力学、动力学性质统计 - scheme 4
 - [ ] 时间尺度分离&多尺度建模 - scheme 5
 - [ ] 反应坐标&自由能 - scheme 6
 - [ ] 粗粒化 - scheme 7
@@ -62,7 +62,20 @@ $$\boldsymbol{F}_{i}(t)=-\nabla_{\boldsymbol{R}_i} U(\mathbf{R}) $$
 
 $$\frac{\partial^2 \boldsymbol{R}_i}{\partial t^2}=-\frac{\nabla_{\boldsymbol{R}_i} U(\mathbf{R})}{m_i} $$
 
-### 7.1.3 构象空间探索
+### 7.1.3 构象空间探索&遍历性原理
+
+分子模拟可以在控制温度下进行，**化学平衡**的原理告诉我们，经过无限长时间，探索过每处 $\mathbf{R}$，概率分布达到平衡后，在某一点 $\mathbf{R}$ 处停留的概率正比于 $\exp[-U(\mathbf{R})/k_\mathrm{B}T]$。这样的概率分布在**物理化学**中称为**玻尔兹曼分布**：
+
+$$
+p(\mathbf{R})=\frac{e^{-\beta U(\mathbf{R})}}{Z},\quad \quad
+Z=\int_{\mathbf{R}}e^{-\beta U(\mathbf{R})}\mathrm{d} \mathbf{R},\quad \quad \beta=\frac{1}{k_\mathrm{B}T}
+$$
+
+而有限时间的模拟，实际上是在探索构象空间，同时对**玻尔兹曼分布**进行**采样**。然而在有限时间时，不可能遍历整个构象空间，
+
+### 7.1.4 宏观热力学、动力学性质统计
+
+
 
 ### 7.1.5 时间尺度分离
 
@@ -79,15 +92,19 @@ $$
 可以看出实际上是一个对高维运动**降维**的过程。对快自由度的能量平均后加入**熵**（多个微观状态 $\mathbf{R}$ 对应同一个反应坐标 $\mathbf{s}$，就有了微观状态数）就得到了**自由能** $F(\mathbf{s})$：
 
 $$
-p(\mathbf{s})=\int_{\mathbf{s}=\mathbf{s}(\mathbf{R})} \mathrm{d} \mathbf{R} p(\mathbf{R}),\quad \quad p(\mathbf{R})=\frac{e^{-\beta U(\mathbf{R})}}{Z}
+p(\mathbf{s})=\int_{\mathbf{s}=\mathbf{s}(\mathbf{R})}  p(\mathbf{R})\mathrm{d} \mathbf{R},\quad \quad p(\mathbf{R})=\frac{e^{-\beta U(\mathbf{R})}}{Z},\quad \quad
+$$
+
+$$
+Z=\int_{\mathbf{R}}e^{-\beta U(\mathbf{R})}\mathrm{d} \mathbf{R},\quad \quad \beta=\frac{1}{k_\mathrm{B}T}
 $$
 
 $$
 \begin{aligned}
     F(\mathbf{s})&=-\frac{1}{\beta} \ln [p(\mathbf{s})\cdot Z]=-k_\mathrm{B}T \ln [p(\mathbf{s})\cdot Z]\\
-    &=-\frac{1}{\beta} \ln \int_{\mathbf{s}=\mathbf{s}(\mathbf{R})} \mathrm{d} \mathbf{R}\cdot e^{-\beta U(\mathbf{R})} \\
-    &=-k_\mathrm{B}T  \int_{\mathbf{s}=\mathbf{s}(\mathbf{R})} \mathrm{d} \mathbf{R}\cdot \ln e^{-\beta U(\mathbf{R})}\\
-    &\quad\quad-T\cdot \left(-k_\mathrm{B} \int_{\mathbf{s}=\mathbf{s}(\mathbf{R})} \mathrm{d} \mathbf{R}\cdot e^{-\beta U(\mathbf{R})}\ln e^{-\beta U(\mathbf{R})}\right)\\
+    &=-\frac{1}{\beta} \ln \int_{\mathbf{s}=\mathbf{s}(\mathbf{R})} e^{-\beta U(\mathbf{R})}\mathrm{d} \mathbf{R} \\
+    &=-k_\mathrm{B}T  \int_{\mathbf{s}=\mathbf{s}(\mathbf{R})} p(\mathbf{R})\ln e^{-\beta U(\mathbf{R})}\mathrm{d} \mathbf{R}\\
+    &\quad\quad-T\cdot \left(-k_\mathrm{B} \int_{\mathbf{s}=\mathbf{s}(\mathbf{R})} p(\mathbf{R})\ln p(\mathbf{R}) \mathrm{d} \mathbf{R}\right)\\
     &=\lang U(\mathbf{R})\rang _{\mathbf{s}=\mathbf{s}(\mathbf{R})}-TS(\mathbf{s})
 \end{aligned}
 $$
@@ -96,7 +113,7 @@ $$
 
 ### 7.1.7 粗粒化
 
-**粗粒化**可以说就是实现上述过程的一个方法：将数个原子视作一个粗粒，从而完成了对**局部化学键振动**这一快自由度的平均。由此实现降维，自由度大大减少，可采取的时间步长增大。
+**粗粒化**可认为是实现上述过程的一个方法：将数个原子视作一个粗粒，从而完成了对**局部化学键振动**这一快自由度的平均。由此实现降维，自由度大大减少，可采取的时间步长增大。
 
 ### 7.1.8 增强抽样
 
