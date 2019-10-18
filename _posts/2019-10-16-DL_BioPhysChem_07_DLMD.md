@@ -50,7 +50,7 @@ tags:
 
 ![1-1 system](https://tablewarebox.files.wordpress.com/2019/10/1-1-system.jpg)
 
-<div align="center">图1  1RSB 平均场解的典型<b>重叠度矩阵</b>。详见自旋玻璃章节</div>
+<div align="center">图1  蛋白 1HD0 及其势能面示意图</div>
 
 我们用一个蛋白分子 1HD0 作为生物体系的样例，给它一个简称叫 PHD，为了拟人化一些~ $N$ 个原子的蛋白分子可以用 $3N$ 个笛卡尔坐标 $\mathbf{R}=(\boldsymbol{R_1, R_2, \cdots, R_N})$，正如 PHD 们在生活中有相当多的行动可以选择。因为原子间有化学键等相互作用，实际上任意一个 $\mathbf{R}$ 就对应一个能量值 $U(\mathbf{R})$，实际上给足够时间的话可以通过量子力学原理将它算出来，称为**势能面**。将所有原子坐标的 $3N$ 个自由度 $\mathbf{R}$ 假想地画在一个二维平面上，纵坐标为 $U(\mathbf{R})$，就是势能面的一个示意图，分子结构的变化就相当于在势能面上移动。图上有山谷（能量**局部极小**值，对应一个**亚稳态**）、山峰（能量**局部极大**值）、连接山谷的**鞍点**（对应**过渡态**）等。
 
@@ -76,21 +76,27 @@ $$
 \mathbf{s}(\mathbf{R})=\left(s_{1}(\mathbf{R}), s_{2}(\mathbf{R}), \ldots, s_{d}(\mathbf{R})\right),\quad\quad d \ll 3N
 $$
 
-可以看出实际上是一个对高维运动**降维**的过程。对快自由度的能量平均后加入**熵**（多个微观状态 $\mathbf{R}$ 对应同一个反应坐标 $\mathbf{s}$，就有了微观状态数）就得到了**自由能**：
+可以看出实际上是一个对高维运动**降维**的过程。对快自由度的能量平均后加入**熵**（多个微观状态 $\mathbf{R}$ 对应同一个反应坐标 $\mathbf{s}$，就有了微观状态数）就得到了**自由能** $F(\mathbf{s})$：
 
 $$
-P(\mathbf{s})=\int \mathrm{d} \mathbf{R} \delta[\mathbf{s}-\mathbf{s}(\mathbf{R})] P(\mathbf{R})=\langle\delta[\mathbf{s}-\mathbf{s}(\mathbf{R})]\rangle
+p(\mathbf{s})=\int_{\mathbf{s}=\mathbf{s}(\mathbf{R})} \mathrm{d} \mathbf{R} p(\mathbf{R}),\quad \quad p(\mathbf{R})=\frac{e^{-\beta U(\mathbf{R})}}{Z}
 $$
 
 $$
-F(\mathbf{s})=-\frac{1}{\beta} \ln P(\mathbf{s})=-k_\mathrm{B}T \ln P(\mathbf{s})
+\begin{aligned}
+    F(\mathbf{s})&=-\frac{1}{\beta} \ln [p(\mathbf{s})\cdot Z]=-k_\mathrm{B}T \ln [p(\mathbf{s})\cdot Z]\\
+    &=-\frac{1}{\beta} \ln \int_{\mathbf{s}=\mathbf{s}(\mathbf{R})} \mathrm{d} \mathbf{R}\cdot e^{-\beta U(\mathbf{R})} \\
+    &=-k_\mathrm{B}T  \int_{\mathbf{s}=\mathbf{s}(\mathbf{R})} \mathrm{d} \mathbf{R}\cdot \ln e^{-\beta U(\mathbf{R})}\\
+    &\quad\quad-T\cdot \left(-k_\mathrm{B} \int_{\mathbf{s}=\mathbf{s}(\mathbf{R})} \mathrm{d} \mathbf{R}\cdot e^{-\beta U(\mathbf{R})}\ln e^{-\beta U(\mathbf{R})}\right)\\
+    &=\lang U(\mathbf{R})\rang _{\mathbf{s}=\mathbf{s}(\mathbf{R})}-TS(\mathbf{s})
+\end{aligned}
 $$
 
 自由能面(Free Energy Surface, FES)比势能面光滑许多。
 
 ### 7.1.7 粗粒化
 
-**粗粒化**可以说就是实现上述过程的一个方法：将数个原子视作一个粗粒，从而完成了对**局部化学键振动**这一快自由度的平均。
+**粗粒化**可以说就是实现上述过程的一个方法：将数个原子视作一个粗粒，从而完成了对**局部化学键振动**这一快自由度的平均。由此实现降维，自由度大大减少，可采取的时间步长增大。
 
 ### 7.1.8 增强抽样
 
