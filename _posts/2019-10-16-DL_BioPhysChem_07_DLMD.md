@@ -4,7 +4,7 @@ title:      生物大分子模拟中的深度学习
 subtitle:   深度学习的生物物理化学原理 第7章
 date:       2019-10-16
 author:     TablewareBox
-header-img: img/Molecular-Dynamics-DL.jpg
+header-img: img/Molecular-Dynamics-DL-2.jpg
 catalog: true
 tags:
     - 分子动力学
@@ -29,7 +29,7 @@ tags:
 
 ### Part I - 分子模拟的插画简介(Illustrated Molecular Dynamics)
 
-- [x] 导引 - scheme 1
+- [x] 体系简介 - scheme 1
 - [x] 势能面(力场)和运动方程 - scheme 2
 - [ ] 构象空间探索 - scheme 3
 - [ ] 时间尺度分离&多尺度建模 - scheme 4
@@ -38,18 +38,23 @@ tags:
 - [ ] 粗粒化 - scheme 7
 - [ ] 增强抽样 - scheme 8
 
-
 ### Part II - 监督学习用于粗粒化力场构建
 
 ### Part III - 生成模型和强化学习用于求解统计力学
 
 ### Part IV - 生成模型和强化学习用于增强抽样
 
-## 4.1 动态平均场理论回顾
+## 7.1 分子模拟的插画简介(Illustrated Molecular Dynamics)
 
-### 4.1.1 模型建立
+### 7.1.1 体系简介
 
-甘利俊一(Shun-ichi Amari) 建立的模型中，$N$ 个**神经元**由连续变量 $\{s_i(t)\in[-1,1]\},\,\,i=1,...,N$ 描述（对应自旋），“**突触矩阵**” $\mathbf{W}$（对应自旋的耦合常数）表达它们的相互作用，阈值 $-\mathbf{b}$ 相当于外场。$W _ {ij}\sim\mathcal{N}(w_0/N,\sigma _ w^2/N),b _ i\sim\mathcal{N}(b_0,\sigma _ b^2)$ 选为一组独立的高斯随机变量。每一时刻 $t$ 神经元的状态 $x_i(t)$ 由**局域场 $h_i(t)$** 决定：
+![1-1 system](https://tablewarebox.files.wordpress.com/2019/10/1-1-system.jpg)
+
+<div align="center">图1  1RSB 平均场解的典型<b>重叠度矩阵</b>。详见自旋玻璃章节</div>
+
+我们用一个蛋白分子1HD0作为生物体系的样例，给它一个简称叫PHD，为了拟人化一些~ $N$ 个原子的蛋白分子可以用3N个笛卡尔坐标 $\mathbf{R}$，正如PHD们在生活中有相当多的行动可以选择。因为原子间有化学键等相互作用，实际上任意一个 $\mathbf{R}$ 就对应一个能量值 $U(\mathbf{R})$，实际上给足够时间的话可以通过量子力学原理将它算出来，称为**势能面**。将所有原子坐标的自由度 $\mathbf{R}$ 假想地画在一个二维平面上，纵坐标为 $U(\mathbf{R})$，就是势能面的一个示意图。
+
+然而实际不可能用计算机求解这么大体系的量子力学问题，科学家们就通过一个有解析表达式的函数 $U(\mathbf{R})$ 近似表达蛋白分子的能量，我们称它为**力场**。
 
 $$x_{i}(t)=\phi(h_{i}(t))$$
 
