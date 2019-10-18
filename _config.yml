@@ -11,7 +11,7 @@ github_repo: "https://github.com/TablewareBox/tablewarebox.github.io.git" # you 
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "Goals determine what you going to be!"
+sidebar-about-description: "自小刺头深草里，而今渐觉出蓬蒿。时人不识凌云木，直待凌云始道高。"
 sidebar-avatar: /img/CJH-icon.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
